@@ -166,7 +166,7 @@
 <section class="hero">
   <div class="hero-tag">THE ULTIMATE MOD PLATFORM</div>
   <h1>BUILD YOUR<br><em>PERFECT RIG</em></h1>
-  <p>Browse aftermarket parts for Sur-Ron, Talaria, Segway, 79 Moto & more. Add to your build, compare prices, and link straight to Amazon.</p>
+  <p>Browse aftermarket parts for Sur-Ron, Talaria, Segway, 79 Bike & more. Add to your build, compare prices, and link straight to Amazon.</p>
   <div class="stats">
     <div><div class="stat-num">200+</div><div class="stat-label">PARTS LISTED</div></div>
     <div><div class="stat-num">5</div><div class="stat-label">MAJOR BRANDS</div></div>
@@ -198,8 +198,8 @@
     <div class="bike-sub">S2 / R / RX / Z1 / ZX</div>
     <div class="bike-tag">STREET STYLE</div>
   </div>
-  <div class="bike-card" data-bike="79 Bike" onclick="selectBike(this,'79moto')">
-    <div class="bike-name" style="color:#e6c040">79 MOTO</div>
+  <div class="bike-card" data-bike="79moto" onclick="selectBike(this,'79moto')">
+    <div class="bike-name" style="color:#e6c040">79 Bike</div>
     <div class="bike-sub">Falcon / Falcon Pro</div>
     <div class="bike-tag">ELECTRIC MX</div>
   </div>
@@ -348,16 +348,16 @@ const parts = [
   { id:52, cat:'cosmetic', bikes:['surron','talaria','segway','super73'], name:'CNC Brake Reservoir Cap', brand:'CNC Racing', level:'beginner', desc:'Billet aluminum reservoir cap. Tiny detail that looks amazing. Available in 6 anodize colors.', price:29, badge:'', link:'https://www.amazon.com/s?k=CNC+billet+brake+reservoir+cap+motorcycle&tag=ripkit-20' },
   { id:53, cat:'cosmetic', bikes:['surron','talaria','segway'], name:'Number Plate Kit', brand:'UFO Plastics', level:'beginner', desc:'Front and side number plates. Blank or custom printed. Multiple colorways available.', price:55, badge:'', link:'https://www.amazon.com/s?k=UFO+Plastics+number+plate+kit+dirt+bike&tag=ripkit-20' },
 
-  // 79 MOTO — Falcon / Falcon Pro
-  { id:60, cat:'power', bikes:['79moto'], name:'79 Moto Falcon Performance Controller', brand:'79 Moto', level:'advanced', desc:'Factory-spec programmable controller for the Falcon and Falcon Pro. Unlocks additional power modes and torque maps via Bluetooth app.', price:849, badge:'hot', link:'https://www.amazon.com/s?k=79+moto+falcon+controller+upgrade&tag=ripkit-20' },
-  { id:61, cat:'power', bikes:['79moto'], name:'Fast Charger 10A (Falcon Compatible)', brand:'EBMX', level:'beginner', desc:'Cut charge time in half. 10A fast charger fully compatible with 79 Moto Falcon battery system.', price:189, badge:'', link:'https://www.amazon.com/s?k=ebike+10A+fast+charger+electric+dirt+bike&tag=ripkit-20' },
+  // 79 Bike — Falcon / Falcon Pro
+  { id:60, cat:'power', bikes:['79moto'], name:'79 Bike Falcon Performance Controller', brand:'79 Bike', level:'advanced', desc:'Factory-spec programmable controller for the Falcon and Falcon Pro. Unlocks additional power modes and torque maps via Bluetooth app.', price:849, badge:'hot', link:'https://www.amazon.com/s?k=79+moto+falcon+controller+upgrade&tag=ripkit-20' },
+  { id:61, cat:'power', bikes:['79moto'], name:'Fast Charger 10A (Falcon Compatible)', brand:'EBMX', level:'beginner', desc:'Cut charge time in half. 10A fast charger fully compatible with 79 Bike Falcon battery system.', price:189, badge:'', link:'https://www.amazon.com/s?k=ebike+10A+fast+charger+electric+dirt+bike&tag=ripkit-20' },
   { id:62, cat:'suspension', bikes:['79moto'], name:'WP XACT Pro Rear Shock (Falcon)', brand:'WP Suspension', level:'advanced', desc:'Fully adjustable rear shock tuned for the Falcon platform. Rebound, compression, and preload adjustment. Competition-grade performance.', price:749, badge:'top', link:'https://www.amazon.com/s?k=WP+XACT+rear+shock+electric+motocross&tag=ripkit-20' },
   { id:63, cat:'suspension', bikes:['79moto'], name:'DNM USD Fork Upgrade (Falcon)', brand:'DNM', level:'advanced', desc:'Upside-down fork upgrade for the Falcon. Massive stiffness improvement and weight reduction over stock.', price:499, badge:'', link:'https://www.amazon.com/s?k=DNM+USD+fork+upgrade+electric+mx&tag=ripkit-20' },
   { id:64, cat:'brakes', bikes:['79moto'], name:'Brembo MX Brake Kit (Front + Rear)', brand:'Brembo', level:'advanced', desc:'Italian-engineered MX hydraulic brakes. The choice of factory MX teams worldwide. Incredible feel and modulation.', price:549, badge:'hot', link:'https://www.amazon.com/s?k=Brembo+MX+brake+kit+motocross&tag=ripkit-20' },
   { id:65, cat:'brakes', bikes:['79moto'], name:'Galfer Wave Rotor Set (Falcon)', brand:'Galfer', level:'beginner', desc:'Stainless wave rotors front and rear. Better heat dissipation, improved bite, and a killer look.', price:149, badge:'', link:'https://www.amazon.com/s?k=Galfer+wave+rotor+electric+motocross&tag=ripkit-20' },
   { id:66, cat:'wheels', bikes:['79moto'], name:'Dunlop MX33 Tire Set (Falcon)', brand:'Dunlop', level:'beginner', desc:'Front and rear MX tires. Aggressive knob pattern for maximum off-road grip. Perfect fitment for the Falcon.', price:139, badge:'top', link:'https://www.amazon.com/s?k=Dunlop+MX33+tires+21+18+electric+mx&tag=ripkit-20' },
   { id:67, cat:'wheels', bikes:['79moto'], name:'Tubliss No-Flat System (Falcon)', brand:'Tubliss', level:'beginner', desc:'Eliminates pinch flats entirely. Run lower pressures for better traction without flats. Essential for trail and race use.', price:109, badge:'', link:'https://www.amazon.com/s?k=Tubliss+no+flat+system+dirt+bike&tag=ripkit-20' },
-  { id:68, cat:'body', bikes:['79moto'], name:'79 Moto Full Graphics Kit', brand:'Factory Effex', level:'beginner', desc:'Pro-designed graphics kit for the Falcon and Falcon Pro. UV resistant vinyl with multiple colorways. Completely transforms the look.', price:149, badge:'', link:'https://www.amazon.com/s?k=electric+motocross+graphics+kit+custom&tag=ripkit-20' },
+  { id:68, cat:'body', bikes:['79moto'], name:'79 Bike Full Graphics Kit', brand:'Factory Effex', level:'beginner', desc:'Pro-designed graphics kit for the Falcon and Falcon Pro. UV resistant vinyl with multiple colorways. Completely transforms the look.', price:149, badge:'', link:'https://www.amazon.com/s?k=electric+motocross+graphics+kit+custom&tag=ripkit-20' },
   { id:69, cat:'body', bikes:['79moto'], name:'Falcon Seat Cover (Custom)', brand:'GUTS Racing', level:'beginner', desc:'Anti-slip seat cover custom fit for the Falcon. Multiple grip patterns and colors available.', price:79, badge:'', link:'https://www.amazon.com/s?k=GUTS+Racing+seat+cover+motocross&tag=ripkit-20' },
   { id:70, cat:'handlebars', bikes:['79moto'], name:'Renthal Fatbar (MX Bend)', brand:'Renthal', level:'beginner', desc:'The industry-standard MX handlebar. Multiple bends available to match your riding style on the Falcon.', price:99, badge:'top', link:'https://www.amazon.com/s?k=Renthal+Fatbar+MX+handlebar&tag=ripkit-20' },
   { id:71, cat:'handlebars', bikes:['79moto'], name:'ODI Lock-On Grips (MX)', brand:'ODI', level:'beginner', desc:'Lock-on grips with no glue required. Ergonomic taper design reduces hand fatigue on long motos.', price:39, badge:'', link:'https://www.amazon.com/s?k=ODI+lock+on+grips+MX&tag=ripkit-20' },
