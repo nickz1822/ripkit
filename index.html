@@ -1,492 +1,560 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RipKit — Electric Dirt Bike Parts</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --orange: #FF4D00;
-    --orange-dim: #cc3d00;
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --surface2: #1a1a1a;
-    --border: #222222;
-    --text: #f0f0f0;
-    --muted: #666666;
-    --green: #00c853;
-    --blue: #2979ff;
-    --gold: #ffd600;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif; min-height:100vh; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RipKit — Electric Dirt Bike Parts</title>
+  <meta name="description" content="Browse 200+ aftermarket parts for Sur-Ron, Talaria, Segway, Super 73, and 79 Moto. Build your kit, save your list, share your wishlist.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #FF4D00;
+      --orange-dim: rgba(255,77,0,0.1);
+      --bg: #0d0d0d;
+      --bg2: #141414;
+      --bg3: #1c1c1c;
+      --border: rgba(255,255,255,0.08);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.45);
+      --font: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+    }
+    html { background: #0d0d0d; }
+    body { background: #0d0d0d; color: #fff; font-family: var(--font); overflow-x: hidden; }
 
-  /* NAV */
-  nav { display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,10,10,0.95); backdrop-filter:blur(10px); z-index:100; }
-  .logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:28px; letter-spacing:2px; }
-  .logo span { color:var(--orange); }
-  .logo-beta { font-size:10px; color:var(--muted); letter-spacing:3px; margin-left:8px; vertical-align:middle; }
-  .nav-right { font-size:13px; color:var(--muted); letter-spacing:1px; display:none; }
-  @media(min-width:600px){ .nav-right { display:block; } }
-  .build-btn { background:var(--orange); color:white; border:none; padding:10px 20px; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:15px; letter-spacing:2px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:background 0.2s; white-space:nowrap; }
-  .build-btn:hover { background:var(--orange-dim); }
-  .build-count { background:white; color:var(--orange); border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:900; }
+    /* ── NAV ── */
+    .rk-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 56px;
+      background: rgba(13,13,13,0.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .rk-logo { font-size: 22px; font-weight: 900; letter-spacing: 2px; color: #fff; text-decoration: none; }
+    .rk-logo span { color: var(--orange); }
+    .rk-logo small { font-size: 10px; font-weight: 400; color: var(--muted); letter-spacing: 3px; margin-left: 6px; }
+    .rk-nav-right { display: flex; align-items: center; gap: 20px; }
+    .rk-nav-label { font-size: 11px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+    .rk-build-btn {
+      background: var(--orange); color: #fff; border: none; cursor: pointer;
+      padding: 8px 20px; font-size: 13px; font-weight: 700; letter-spacing: 2px;
+      font-family: var(--font); display: flex; align-items: center; gap: 8px;
+      text-transform: uppercase; transition: background 0.2s;
+    }
+    .rk-build-btn:hover { background: #ff6a2a; }
+    .rk-build-count {
+      background: #fff; color: var(--orange); border-radius: 50%;
+      width: 20px; height: 20px; font-size: 11px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+    }
 
-  /* HERO */
-  .hero { padding:48px 24px 32px; max-width:700px; }
-  .hero-tag { font-size:11px; letter-spacing:4px; color:var(--orange); margin-bottom:16px; }
-  .hero h1 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(48px,9vw,88px); line-height:0.9; text-transform:uppercase; }
-  .hero h1 em { color:var(--orange); font-style:normal; }
-  .hero p { font-size:15px; color:var(--muted); margin-top:20px; max-width:480px; line-height:1.6; }
-  .stats { display:flex; gap:32px; margin-top:28px; flex-wrap:wrap; }
-  .stat-num { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:38px; color:var(--orange); }
-  .stat-label { font-size:11px; letter-spacing:2px; color:var(--muted); margin-top:2px; }
+    /* ── HERO ── */
+    .rk-hero {
+      padding-top: 56px; display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 100vh; background: #0d0d0d;
+    }
+    .rk-hero-left {
+      padding: 80px 60px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .rk-hero-eyebrow {
+      font-size: 11px; letter-spacing: 4px; color: var(--orange);
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .rk-hero-h1 {
+      font-size: clamp(52px, 6vw, 88px); font-weight: 900;
+      line-height: 0.9; margin-bottom: 24px; text-transform: uppercase;
+    }
+    .rk-hero-h1 span { color: var(--orange); display: block; }
+    .rk-hero-sub {
+      font-size: 17px; color: var(--muted); line-height: 1.6;
+      max-width: 460px; margin-bottom: 40px;
+      font-family: sans-serif; font-weight: 400;
+    }
+    .rk-hero-cta {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--orange); color: #fff; padding: 16px 36px;
+      font-size: 15px; font-weight: 700; letter-spacing: 2px;
+      cursor: pointer; border: none; font-family: var(--font);
+      text-transform: uppercase; transition: all 0.2s; text-decoration: none;
+      width: fit-content;
+    }
+    .rk-hero-cta:hover { background: #ff6a2a; gap: 18px; }
+    .rk-hero-stats {
+      display: flex; gap: 40px; margin-top: 56px; padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .rk-stat-num { font-size: 36px; font-weight: 900; color: var(--orange); display: block; }
+    .rk-stat-label { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-top: 4px; display: block; }
 
-  /* STEPS */
-  .step-label { font-size:10px; letter-spacing:4px; color:var(--muted); padding:36px 24px 14px; }
+    /* Hero Right */
+    .rk-hero-right {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #111 0%, #0d0d0d 100%);
+      border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 50px 60px;
+    }
+    .rk-hero-right::before {
+      content: ''; position: absolute; top: -30%; right: -20%;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,77,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .rk-bike-showcase-title {
+      font-size: 11px; letter-spacing: 4px; color: var(--muted);
+      text-transform: uppercase; margin-bottom: 24px;
+    }
+    .rk-bike-showcase { display: flex; flex-direction: column; gap: 10px; }
+    .rk-showcase-card {
+      padding: 18px 24px; border: 1px solid var(--border);
+      background: #141414; cursor: pointer; transition: all 0.25s;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .rk-showcase-card:hover, .rk-showcase-card.active {
+      border-color: var(--orange); background: var(--orange-dim);
+    }
+    .rk-sc-left { display: flex; flex-direction: column; gap: 3px; }
+    .rk-sc-name { font-size: 20px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+    .rk-sc-models { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+    .rk-sc-right { display: flex; align-items: center; gap: 12px; }
+    .rk-sc-tag {
+      font-size: 9px; letter-spacing: 2px; padding: 4px 8px;
+      border: 1px solid var(--border); color: var(--muted); text-transform: uppercase;
+    }
+    .rk-showcase-card.active .rk-sc-tag { border-color: var(--orange); color: var(--orange); }
+    .rk-sc-arrow { font-size: 18px; color: var(--muted); }
+    .rk-showcase-card.active .rk-sc-arrow { color: var(--orange); }
 
-  /* BIKE SELECT */
-  .bike-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; padding:0 24px; }
-  .bike-card { border:1px solid var(--border); padding:16px; cursor:pointer; transition:all 0.2s; background:var(--surface); }
-  .bike-card:hover, .bike-card.active { border-color:var(--orange); background:var(--surface2); }
-  .bike-card.active { border-width:2px; }
-  .bike-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:20px; letter-spacing:1px; }
-  .bike-sub { font-size:11px; color:var(--muted); margin-top:4px; }
-  .bike-tag { display:inline-block; font-size:9px; letter-spacing:2px; border:1px solid var(--border); padding:3px 8px; margin-top:8px; color:var(--muted); }
-  .bike-card.active .bike-tag { border-color:var(--orange); color:var(--orange); }
+    /* ── HOW IT WORKS ── */
+    .rk-how {
+      background: #141414; border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border); padding: 60px;
+    }
+    .rk-how-inner { max-width: 1100px; margin: 0 auto; }
+    .rk-how-title {
+      font-size: 11px; letter-spacing: 4px; color: var(--orange);
+      text-transform: uppercase; margin-bottom: 36px; text-align: center;
+    }
+    .rk-how-steps {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 1px; background: var(--border);
+    }
+    .rk-how-step {
+      background: #141414; padding: 32px 28px; position: relative;
+    }
+    .rk-how-step::after {
+      content: '→'; position: absolute; right: -14px; top: 50%;
+      transform: translateY(-50%); color: var(--orange); font-size: 20px; z-index: 1;
+    }
+    .rk-how-step:last-child::after { display: none; }
+    .rk-how-num {
+      font-size: 48px; font-weight: 900; color: rgba(255,77,0,0.15);
+      line-height: 1; margin-bottom: 12px;
+    }
+    .rk-how-step-title {
+      font-size: 16px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .rk-how-step-desc {
+      font-size: 13px; color: var(--muted); line-height: 1.5;
+      font-family: sans-serif; font-weight: 400;
+    }
 
-  /* FILTERS */
-  .filter-bar { padding:20px 24px 0; display:flex; flex-direction:column; gap:12px; }
-  .budget-row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-  .budget-label { font-size:11px; letter-spacing:2px; color:var(--muted); white-space:nowrap; }
-  .budget-val { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:18px; color:var(--orange); min-width:60px; }
-  input[type=range] { flex:1; min-width:120px; max-width:300px; accent-color:var(--orange); cursor:pointer; }
-  .cat-scroll { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; flex-wrap:wrap; }
-  .cat-scroll::-webkit-scrollbar { display:none; }
-  .cat-btn { flex-shrink:0; font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:12px; letter-spacing:1px; padding:7px 14px; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all 0.15s; white-space:nowrap; }
-  .cat-btn:hover { border-color:var(--text); color:var(--text); }
-  .cat-btn.active { border-color:var(--orange); color:var(--orange); background:rgba(255,77,0,0.08); }
+    /* ── WHAT WE DO ── */
+    .rk-about { padding: 80px 60px; background: #0d0d0d; }
+    .rk-about-inner { max-width: 1100px; margin: 0 auto; }
+    .rk-about-label {
+      font-size: 11px; letter-spacing: 4px; color: var(--orange);
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .rk-about-h2 {
+      font-size: clamp(32px, 4vw, 56px); font-weight: 900;
+      text-transform: uppercase; line-height: 1; margin-bottom: 24px;
+    }
+    .rk-about-body {
+      font-size: 16px; color: var(--muted); line-height: 1.7;
+      max-width: 700px; font-family: sans-serif; font-weight: 400; margin-bottom: 48px;
+    }
+    .rk-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .rk-feature {
+      background: #141414; border: 1px solid var(--border);
+      padding: 28px 24px; transition: border-color 0.2s;
+    }
+    .rk-feature:hover { border-color: var(--orange); }
+    .rk-feature-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+    .rk-feature-title {
+      font-size: 15px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .rk-feature-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.5;
+      font-family: sans-serif; font-weight: 400;
+    }
 
-  /* RESULTS BAR */
-  .results-bar { padding:12px 24px; font-size:12px; color:var(--muted); letter-spacing:1px; }
-  .results-bar span { color:var(--orange); font-weight:700; }
+    /* ── BIKE SELECTOR ── */
+    .rk-select-section { padding: 0 60px; max-width: 1280px; margin: 0 auto; }
+    .rk-section-label {
+      font-size: 11px; letter-spacing: 4px; color: var(--muted);
+      text-transform: uppercase; padding: 48px 0 24px;
+      border-top: 1px solid var(--border);
+    }
+    .rk-section-label span { color: var(--orange); margin-right: 12px; }
+    .rk-bike-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 16px; margin-bottom: 0;
+    }
+    .rk-bike-card {
+      background: #141414; border: 1px solid var(--border);
+      padding: 28px 24px 24px; cursor: pointer; transition: all 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .rk-bike-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--orange); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .rk-bike-card:hover { border-color: rgba(255,77,0,0.4); background: rgba(255,77,0,0.04); }
+    .rk-bike-card:hover::before { transform: scaleX(0.5); }
+    .rk-bike-card.active { border-color: var(--orange); background: var(--orange-dim); }
+    .rk-bike-card.active::before { transform: scaleX(1); }
+    .rk-bc-num {
+      font-size: 48px; font-weight: 900; color: rgba(255,255,255,0.04);
+      line-height: 1; position: absolute; top: 12px; right: 16px;
+    }
+    .rk-bc-name {
+      font-size: 22px; font-weight: 900; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .rk-bc-models { font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-bottom: 12px; }
+    .rk-bc-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.4;
+      font-family: sans-serif; font-weight: 400; margin-bottom: 16px;
+    }
+    .rk-bc-tag {
+      display: inline-block; font-size: 9px; letter-spacing: 2px; padding: 4px 8px;
+      text-transform: uppercase; border: 1px solid var(--border); color: var(--muted);
+    }
+    .rk-bike-card.active .rk-bc-tag { border-color: var(--orange); color: var(--orange); }
+    .rk-bc-count { font-size: 11px; color: var(--orange); margin-top: 8px; display: block; font-weight: 700; }
 
-  /* PARTS GRID */
-  .parts-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1px; background:var(--border); }
-  .part-card { background:var(--surface); padding:20px; display:flex; flex-direction:column; gap:10px; position:relative; transition:background 0.15s; }
-  .part-card:hover { background:var(--surface2); }
-  .part-card.hidden { display:none; }
-  .badge { position:absolute; top:14px; right:14px; font-size:9px; letter-spacing:2px; padding:3px 8px; font-family:'Barlow Condensed',sans-serif; font-weight:700; }
-  .badge-hot { background:rgba(255,77,0,0.15); color:var(--orange); border:1px solid var(--orange); }
-  .badge-top { background:rgba(255,214,0,0.1); color:var(--gold); border:1px solid var(--gold); }
-  .badge-new { background:rgba(41,121,255,0.1); color:var(--blue); border:1px solid var(--blue); }
-  .part-cat { font-size:9px; letter-spacing:3px; color:var(--orange); }
-  .part-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:19px; line-height:1.1; }
-  .part-brand { font-size:12px; color:var(--muted); }
-  .part-level { display:inline-block; font-size:9px; letter-spacing:1px; padding:2px 8px; border-radius:2px; font-weight:600; }
-  .level-beginner { background:rgba(0,200,83,0.12); color:var(--green); border:1px solid var(--green); }
-  .level-advanced { background:rgba(255,77,0,0.1); color:var(--orange); border:1px solid var(--orange); }
-  .part-desc { font-size:13px; color:#999; line-height:1.5; flex:1; }
-  .part-bottom { display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border); padding-top:10px; }
-  .part-price { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:22px; }
-  .part-price-sub { font-size:10px; color:var(--muted); letter-spacing:1px; }
-  .part-actions { display:flex; gap:8px; }
-  .btn-shop { background:transparent; border:1px solid var(--border); color:var(--muted); padding:7px 12px; font-size:11px; letter-spacing:1px; cursor:pointer; transition:all 0.15s; text-decoration:none; font-family:'Barlow',sans-serif; display:inline-block; }
-  .btn-shop:hover { border-color:var(--text); color:var(--text); }
-  .btn-add { background:var(--orange); border:none; color:white; width:34px; height:34px; font-size:20px; cursor:pointer; transition:background 0.15s; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .btn-add:hover { background:var(--orange-dim); }
-  .btn-add.added { background:var(--green); }
+    /* ── PARTS SECTION ── */
+    .rk-parts-section {
+      max-width: 1280px; margin: 0 auto; padding: 0 60px 80px;
+      display: none;
+    }
+    .rk-parts-section.visible { display: block; }
+    .rk-parts-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 36px 0 28px; border-top: 1px solid var(--border); margin-top: 24px;
+    }
+    .rk-parts-heading {
+      font-size: 11px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase;
+    }
+    .rk-parts-heading span { color: var(--orange); margin-right: 12px; }
+    .rk-parts-heading .bike-color { margin-left: 4px; }
 
-  /* NO RESULTS */
-  .no-results { padding:60px 24px; text-align:center; color:var(--muted); font-size:15px; width:100%; background:var(--surface); }
+    /* Budget */
+    .rk-budget-bar {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 20px; background: #141414; border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .rk-budget-label { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; white-space: nowrap; }
+    .rk-budget-val { font-size: 18px; font-weight: 900; color: var(--orange); min-width: 80px; }
+    .rk-budget-slider { flex: 1; accent-color: var(--orange); cursor: pointer; height: 4px; }
+    .rk-budget-reset {
+      font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
+      cursor: pointer; padding: 6px 12px; border: 1px solid var(--border);
+      background: none; font-family: var(--font); transition: all 0.2s;
+    }
+    .rk-budget-reset:hover { border-color: var(--orange); color: var(--orange); }
 
-  /* BUILD PANEL */
-  .build-panel { position:fixed; right:0; top:0; width:340px; height:100vh; background:var(--surface); border-left:1px solid var(--border); transform:translateX(100%); transition:transform 0.3s; z-index:200; display:flex; flex-direction:column; }
-  .build-panel.open { transform:translateX(0); }
-  @media(max-width:400px){ .build-panel { width:100vw; } }
-  .build-header { padding:18px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
-  .build-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:20px; letter-spacing:2px; }
-  .close-btn { background:none; border:none; color:var(--muted); font-size:24px; cursor:pointer; line-height:1; }
-  .build-items { flex:1; overflow-y:auto; padding:14px; }
-  .build-empty { text-align:center; color:var(--muted); font-size:14px; padding:40px 16px; }
-  .build-item { display:flex; justify-content:space-between; align-items:flex-start; padding:10px 0; border-bottom:1px solid var(--border); gap:10px; }
-  .build-item-name { font-size:13px; font-weight:500; line-height:1.3; }
-  .build-item-cat { font-size:9px; letter-spacing:2px; color:var(--orange); margin-top:2px; }
-  .build-item-price { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:17px; white-space:nowrap; }
-  .remove-btn { background:none; border:none; color:var(--muted); cursor:pointer; font-size:14px; padding:0 4px; flex-shrink:0; }
-  .remove-btn:hover { color:#ff4444; }
-  .build-footer { padding:18px 20px; border-top:1px solid var(--border); }
-  .build-total-label { font-size:11px; letter-spacing:2px; color:var(--muted); }
-  .build-total { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:38px; color:var(--orange); margin:4px 0 14px; }
-  .share-btn { width:100%; background:transparent; border:1px solid var(--orange); color:var(--orange); padding:13px; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:14px; letter-spacing:3px; cursor:pointer; transition:all 0.2s; }
-  .share-btn:hover { background:var(--orange); color:white; }
+    /* Two-panel */
+    .rk-two-panel { display: grid; grid-template-columns: 210px 1fr; gap: 24px; }
 
-  /* BACK TO TOP */
-  .back-top { position:fixed; bottom:24px; right:24px; background:var(--orange); color:white; border:none; width:44px; height:44px; font-size:20px; cursor:pointer; display:none; align-items:center; justify-content:center; z-index:150; transition:opacity 0.2s; }
-  .back-top.visible { display:flex; }
-  .back-top:hover { background:var(--orange-dim); }
+    /* Category sidebar */
+    .rk-cat-sidebar { display: flex; flex-direction: column; gap: 5px; }
+    .rk-cat-btn {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 14px; background: #141414; border: 1px solid var(--border);
+      cursor: pointer; transition: all 0.2s; text-align: left; width: 100%;
+      font-family: var(--font); font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .rk-cat-btn:hover { border-color: rgba(255,77,0,0.4); color: #fff; }
+    .rk-cat-btn.active { border-color: var(--orange); background: var(--orange-dim); color: var(--orange); }
+    .rk-cat-icon { font-size: 15px; width: 18px; text-align: center; flex-shrink: 0; }
+    .rk-cat-count {
+      margin-left: auto; font-size: 10px; background: rgba(255,255,255,0.06);
+      padding: 2px 6px; border-radius: 2px; flex-shrink: 0;
+    }
+    .rk-cat-btn.active .rk-cat-count { background: rgba(255,77,0,0.2); color: var(--orange); }
 
-  /* FOOTER */
-  footer { padding:40px 24px; border-top:1px solid var(--border); margin-top:40px; display:flex; flex-wrap:wrap; gap:24px; justify-content:space-between; align-items:center; }
-  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:22px; letter-spacing:2px; }
-  .footer-logo span { color:var(--orange); }
-  .footer-text { font-size:12px; color:var(--muted); line-height:1.7; max-width:400px; }
-  .footer-links { display:flex; gap:20px; }
-  .footer-links a { font-size:12px; color:var(--muted); text-decoration:none; letter-spacing:1px; }
-  .footer-links a:hover { color:var(--text); }
+    /* Results bar */
+    .rk-results-bar { display: flex; align-items: center; margin-bottom: 16px; }
+    .rk-results-count { font-size: 13px; color: var(--muted); font-family: sans-serif; }
+    .rk-results-count strong { color: #fff; }
 
-  /* MOBILE */
-  @media(max-width:600px) {
-    .hero { padding:32px 16px 24px; }
-    .bike-grid { padding:0 16px; }
-    .filter-bar { padding:16px 16px 0; }
-    .results-bar { padding:10px 16px; }
-    .stats { gap:20px; }
-    nav { padding:14px 16px; }
-  }
-</style>
+    /* Parts grid */
+    .rk-parts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .rk-part-card {
+      background: #141414; border: 1px solid var(--border);
+      padding: 20px; display: flex; flex-direction: column;
+      gap: 10px; position: relative; transition: border-color 0.2s;
+    }
+    .rk-part-card:hover { border-color: rgba(255,77,0,0.3); }
+    .rk-part-badge {
+      position: absolute; top: 12px; right: 12px;
+      font-size: 9px; font-weight: 900; letter-spacing: 2px; padding: 3px 8px;
+      text-transform: uppercase;
+    }
+    .rk-part-badge.hot { background: var(--orange); color: #fff; }
+    .rk-part-badge.top { background: #f5c518; color: #000; }
+    .rk-part-badge.new { background: #00c853; color: #fff; }
+    .rk-part-cat { font-size: 9px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+    .rk-part-name {
+      font-size: 16px; font-weight: 700; letter-spacing: 0.5px;
+      line-height: 1.2; text-transform: uppercase; padding-right: 50px;
+    }
+    .rk-part-meta { display: flex; align-items: center; gap: 8px; }
+    .rk-part-brand { font-size: 11px; color: var(--muted); }
+    .rk-part-level { font-size: 9px; letter-spacing: 2px; padding: 3px 7px; text-transform: uppercase; }
+    .rk-part-level.beginner { background: rgba(0,200,83,0.15); color: #00c853; }
+    .rk-part-level.advanced { background: rgba(255,77,0,0.15); color: var(--orange); }
+    .rk-part-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.5;
+      font-family: sans-serif; font-weight: 400; flex: 1;
+    }
+    .rk-part-bottom {
+      display: flex; align-items: flex-end; justify-content: space-between; margin-top: auto;
+    }
+    .rk-part-price { font-size: 20px; font-weight: 900; }
+    .rk-part-price-sub { font-size: 11px; color: var(--muted); font-family: sans-serif; }
+    .rk-part-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .rk-shop-link {
+      font-size: 10px; letter-spacing: 1px; color: var(--muted); text-decoration: none;
+      padding: 5px 8px; border: 1px solid var(--border); transition: all 0.2s;
+      font-family: var(--font); white-space: nowrap;
+    }
+    .rk-shop-link:hover { border-color: var(--orange); color: var(--orange); }
+    .rk-add-btn {
+      width: 32px; height: 32px; background: var(--orange); border: none; color: #fff;
+      font-size: 18px; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: background 0.2s; flex-shrink: 0;
+      font-family: var(--font);
+    }
+    .rk-add-btn:hover { background: #ff6a2a; }
+    .rk-add-btn.added { background: #00c853; }
+    .rk-no-results {
+      grid-column: 1/-1; text-align: center; padding: 60px 20px;
+      color: var(--muted); font-size: 14px; font-family: sans-serif;
+    }
+
+    /* ── BUILD PANEL ── */
+    .rk-build-panel {
+      position: fixed; top: 0; right: -460px; width: 440px; height: 100vh;
+      background: #141414; border-left: 1px solid var(--border);
+      z-index: 200; display: flex; flex-direction: column;
+      transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    }
+    .rk-build-panel.open { right: 0; }
+    .rk-build-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .rk-build-title { font-size: 14px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+    .rk-build-close {
+      background: none; border: none; color: var(--muted);
+      font-size: 20px; cursor: pointer; padding: 4px; transition: color 0.2s;
+    }
+    .rk-build-close:hover { color: #fff; }
+    .rk-build-bike-label {
+      padding: 10px 24px; background: var(--orange-dim);
+      border-bottom: 1px solid rgba(255,77,0,0.2);
+      font-size: 11px; letter-spacing: 2px; color: var(--orange); text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .rk-build-items { flex: 1; overflow-y: auto; padding: 16px 24px; }
+    .rk-build-empty {
+      text-align: center; color: var(--muted); font-size: 14px;
+      font-family: sans-serif; padding: 40px 0; line-height: 1.6;
+    }
+    .rk-build-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border); gap: 12px;
+    }
+    .rk-build-item-name {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 3px;
+    }
+    .rk-build-item-cat { font-size: 9px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+    .rk-build-item-price { font-size: 14px; font-weight: 900; white-space: nowrap; }
+    .rk-remove-btn {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      width: 26px; height: 26px; cursor: pointer; font-size: 12px; flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .rk-remove-btn:hover { border-color: #ff4444; color: #ff4444; }
+    .rk-build-footer { padding: 20px 24px; border-top: 1px solid var(--border); flex-shrink: 0; }
+    .rk-build-total-row {
+      display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;
+    }
+    .rk-build-total-label { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+    .rk-build-total { font-size: 32px; font-weight: 900; color: var(--orange); }
+
+    /* Email save */
+    .rk-save-section { margin-bottom: 14px; }
+    .rk-save-label {
+      font-size: 10px; letter-spacing: 1px; color: var(--muted);
+      text-transform: uppercase; margin-bottom: 8px; display: block; line-height: 1.5;
+      font-family: sans-serif;
+    }
+    .rk-save-row { display: flex; gap: 8px; }
+    .rk-email-input {
+      flex: 1; background: #0d0d0d; border: 1px solid var(--border); color: #fff;
+      padding: 10px 14px; font-size: 13px; font-family: sans-serif; outline: none;
+      transition: border-color 0.2s;
+    }
+    .rk-email-input:focus { border-color: var(--orange); }
+    .rk-email-input::placeholder { color: var(--muted); }
+    .rk-save-btn {
+      background: #1c1c1c; border: 1px solid var(--border); color: #fff;
+      padding: 10px 16px; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      cursor: pointer; font-family: var(--font); text-transform: uppercase;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .rk-save-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* Share link */
+    .rk-share-link-row { display: flex; gap: 8px; margin-bottom: 14px; }
+    .rk-share-link-input {
+      flex: 1; background: #0d0d0d; border: 1px solid var(--border); color: var(--muted);
+      padding: 8px 12px; font-size: 11px; font-family: monospace; outline: none;
+    }
+    .rk-copy-btn {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      padding: 8px 12px; font-size: 10px; letter-spacing: 1px; cursor: pointer;
+      font-family: var(--font); text-transform: uppercase; transition: all 0.2s; white-space: nowrap;
+    }
+    .rk-copy-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .rk-share-btn {
+      width: 100%; background: var(--orange); color: #fff; border: none;
+      padding: 14px; font-size: 13px; font-weight: 700; letter-spacing: 2px;
+      cursor: pointer; font-family: var(--font); text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .rk-share-btn:hover { background: #ff6a2a; }
+
+    /* ── FOOTER ── */
+    .rk-footer {
+      background: #141414; border-top: 1px solid var(--border);
+      padding: 40px 60px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .rk-footer-logo { font-size: 18px; font-weight: 900; letter-spacing: 2px; }
+    .rk-footer-logo span { color: var(--orange); }
+    .rk-footer-text { font-size: 12px; color: var(--muted); font-family: sans-serif; margin-top: 6px; }
+    .rk-footer-links { display: flex; gap: 24px; }
+    .rk-footer-link {
+      font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .rk-footer-link:hover { color: var(--orange); }
+
+    /* Toast */
+    .rk-toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: #00c853; color: #fff; padding: 14px 28px; font-size: 13px; font-weight: 700;
+      letter-spacing: 1px; z-index: 300; transition: transform 0.3s; white-space: nowrap;
+      font-family: var(--font); text-transform: uppercase;
+    }
+    .rk-toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* Back to top */
+    .rk-back-top {
+      position: fixed; bottom: 32px; right: 32px; z-index: 50;
+      width: 44px; height: 44px; background: var(--orange); color: #fff; border: none;
+      font-size: 18px; cursor: pointer; display: none; align-items: center;
+      justify-content: center; transition: background 0.2s;
+    }
+    .rk-back-top.visible { display: flex; }
+    .rk-back-top:hover { background: #ff6a2a; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .rk-hero { grid-template-columns: 1fr; }
+      .rk-hero-right { display: none; }
+      .rk-bike-grid { grid-template-columns: repeat(3, 1fr); }
+      .rk-features { grid-template-columns: 1fr 1fr; }
+      .rk-how-steps { grid-template-columns: 1fr 1fr; }
+      .rk-how-step::after { display: none; }
+    }
+    @media (max-width: 768px) {
+      .rk-hero-left { padding: 80px 24px 40px; }
+      .rk-select-section, .rk-parts-section { padding: 0 24px 60px; }
+      .rk-about { padding: 60px 24px; }
+      .rk-how { padding: 40px 24px; }
+      .rk-bike-grid { grid-template-columns: 1fr 1fr; }
+      .rk-two-panel { grid-template-columns: 1fr; }
+      .rk-cat-sidebar { flex-direction: row; flex-wrap: wrap; }
+      .rk-parts-grid { grid-template-columns: 1fr 1fr; }
+      .rk-features { grid-template-columns: 1fr; }
+      .rk-footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
+    }
+    @media (max-width: 480px) {
+      .rk-parts-grid { grid-template-columns: 1fr; }
+      .rk-bike-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <div style="display:flex;align-items:center;">
-    <span class="logo">RIP<span>KIT</span></span>
-    <span class="logo-beta">BETA</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <span class="nav-right">ELECTRIC DIRT BIKE PARTS</span>
-    <button class="build-btn" onclick="toggleBuild()">
-      MY BUILD <span class="build-count" id="buildCount">0</span>
+<!-- NAV -->
+<nav class="rk-nav">
+  <a class="rk-logo" href="#">RIP<span>KIT</span> <small>BETA</small></a>
+  <div class="rk-nav-right">
+    <span class="rk-nav-label">Electric Dirt Bike Parts</span>
+    <button class="rk-build-btn" onclick="toggleBuildPanel()">
+      MY BUILD <span class="rk-build-count" id="buildCount">0</span>
     </button>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-tag">THE ULTIMATE MOD PLATFORM</div>
-  <h1>BUILD YOUR<br><em>PERFECT RIG</em></h1>
-  <p>Browse aftermarket parts for Sur-Ron, Talaria, Segway, Stark & more. Add to your build, compare prices, and link straight to Amazon.</p>
-  <div class="stats">
-    <div><div class="stat-num">200+</div><div class="stat-label">PARTS LISTED</div></div>
-    <div><div class="stat-num">6</div><div class="stat-label">MAJOR BRANDS</div></div>
-    <div><div class="stat-num">13</div><div class="stat-label">CATEGORIES</div></div>
-    <div><div class="stat-num">FREE</div><div class="stat-label">ALWAYS</div></div>
+<!-- HERO -->
+<section class="rk-hero">
+  <div class="rk-hero-left">
+    <div class="rk-hero-eyebrow">The Ultimate Mod Platform</div>
+    <h1 class="rk-hero-h1">Build Your<span>Perfect Rig</span></h1>
+    <p class="rk-hero-sub">RipKit is the only platform built specifically for electric dirt bike riders. Browse 200+ hand-curated aftermarket parts for your exact bike, build your kit, save your list, and share it with anyone — all for free.</p>
+    <a href="#select-bike" class="rk-hero-cta" onclick="smoothTo('select-bike');return false;">Start Building →</a>
+    <div class="rk-hero-stats">
+      <div><span class="rk-stat-num">200+</span><span class="rk-stat-label">Parts Listed</span></div>
+      <div><span class="rk-stat-num">5</span><span class="rk-stat-label">Bike Platforms</span></div>
+      <div><span class="rk-stat-num">13</span><span class="rk-stat-label">Categories</span></div>
+      <div><span class="rk-stat-num">FREE</span><span class="rk-stat-label">Always</span></div>
+    </div>
   </div>
-</section>
-
-<div class="step-label">01 — SELECT YOUR BIKE</div>
-<div class="bike-grid">
-  <div class="bike-card active" data-bike="surron" onclick="selectBike(this,'surron')">
-    <div class="bike-name" style="color:#FF4D00">SUR-RON</div>
-    <div class="bike-sub">Light Bee X / Ultra Bee</div>
-    <div class="bike-tag">MOST POPULAR</div>
-  </div>
-  <div class="bike-card" data-bike="talaria" onclick="selectBike(this,'talaria')">
-    <div class="bike-name" style="color:#2979ff">TALARIA</div>
-    <div class="bike-sub">Sting MX3 / MX4 / XXX</div>
-    <div class="bike-tag">SUR-RON KILLER</div>
-  </div>
-  <div class="bike-card" data-bike="segway" onclick="selectBike(this,'segway')">
-    <div class="bike-name" style="color:#00c853">SEGWAY</div>
-    <div class="bike-sub">X160 / X260</div>
-    <div class="bike-tag">DUAL SPORT</div>
-  </div>
-  <div class="bike-card" data-bike="stark" onclick="selectBike(this,'stark')">
-    <div class="bike-name" style="color:#9c27b0">STARK</div>
-    <div class="bike-sub">Varg / Varg EX</div>
-    <div class="bike-tag">MOTOCROSS</div>
-  </div>
-  <div class="bike-card" data-bike="super73" onclick="selectBike(this,'super73')">
-    <div class="bike-name" style="color:#ffd600">SUPER 73</div>
-    <div class="bike-sub">S2 / R / RX / Z1 / ZX</div>
-    <div class="bike-tag">STREET STYLE</div>
-  </div>
-  <div class="bike-card" data-bike="ktm" onclick="selectBike(this,'ktm')">
-    <div class="bike-name" style="color:#ff6d00">KTM FREERIDE</div>
-    <div class="bike-sub">E-XC / 350 / 150</div>
-    <div class="bike-tag">ENDURO</div>
-  </div>
-</div>
-
-<div class="step-label">02 — BROWSE PARTS</div>
-
-<div class="filter-bar">
-  <div class="budget-row">
-    <span class="budget-label">MAX BUDGET</span>
-    <span class="budget-val" id="budgetVal">ALL</span>
-    <input type="range" id="budgetSlider" min="0" max="3000" step="50" value="3000" oninput="updateBudget(this.value)">
-    <button class="cat-btn" onclick="resetBudget()" style="padding:5px 10px;font-size:11px;">RESET</button>
-  </div>
-  <div class="cat-scroll" id="catButtons">
-    <button class="cat-btn active" onclick="filterCat('all',this)">ALL PARTS</button>
-    <button class="cat-btn" onclick="filterCat('power',this)">⚡ POWER</button>
-    <button class="cat-btn" onclick="filterCat('suspension',this)">🔧 SUSPENSION</button>
-    <button class="cat-btn" onclick="filterCat('brakes',this)">🛑 BRAKES</button>
-    <button class="cat-btn" onclick="filterCat('wheels',this)">🔵 WHEELS & TIRES</button>
-    <button class="cat-btn" onclick="filterCat('lighting',this)">💡 LIGHTING</button>
-    <button class="cat-btn" onclick="filterCat('body',this)">🎨 BODY & STYLE</button>
-    <button class="cat-btn" onclick="filterCat('handlebars',this)">🏍 HANDLEBARS & GRIPS</button>
-    <button class="cat-btn" onclick="filterCat('pegs',this)">👟 PEGS & PEDALS</button>
-    <button class="cat-btn" onclick="filterCat('drivetrain',this)">⚙️ DRIVETRAIN</button>
-    <button class="cat-btn" onclick="filterCat('protection',this)">🛡 PROTECTION</button>
-    <button class="cat-btn" onclick="filterCat('electronics',this)">📡 ELECTRONICS</button>
-    <button class="cat-btn" onclick="filterCat('cosmetic',this)">✨ COSMETIC</button>
-  </div>
-</div>
-
-<div class="results-bar"><span id="resultsCount">0</span> PARTS SHOWN</div>
-
-<div style="background:var(--border);">
-  <div class="parts-grid" id="partsGrid"></div>
-  <div class="no-results" id="noResults" style="display:none;">No parts found for this bike + filter combo. Try a different category or raise your budget.</div>
-</div>
-
-<footer>
-  <div>
-    <div class="footer-logo">RIP<span>KIT</span></div>
-    <div class="footer-text" style="margin-top:8px;">The ultimate mod platform for electric dirt bikes. Browse parts, build your rig, and link straight to Amazon.</div>
-  </div>
-  <div class="footer-links">
-    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOP</a>
-    <a href="https://associates.amazon.com" target="_blank">AFFILIATE</a>
-  </div>
-</footer>
-
-<!-- BUILD PANEL -->
-<div class="build-panel" id="buildPanel">
-  <div class="build-header">
-    <div class="build-title">MY BUILD</div>
-    <button class="close-btn" onclick="toggleBuild()">✕</button>
-  </div>
-  <div class="build-items" id="buildItems">
-    <div class="build-empty">No parts added yet.<br>Browse and hit + to add.</div>
-  </div>
-  <div class="build-footer">
-    <div class="build-total-label">ESTIMATED TOTAL</div>
-    <div class="build-total" id="buildTotal">$0</div>
-    <button class="share-btn" onclick="shareBuild()">SHARE MY BUILD</button>
-  </div>
-</div>
-
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
-<script>
-const parts = [
-  // POWER — all bikes
-  { id:1, cat:'power', bikes:['surron','talaria','segway','stark','ktm'], name:'EBMX X-9000 V3 Controller', brand:'EBMX', level:'advanced', desc:'The #1 bestselling controller. Unlocks full tunability from your stock battery. Massive power gains.', price:999, badge:'hot', link:'https://www.amazon.com/dp/B0EXAMPLE1?tag=ripkit-20' },
-  { id:2, cat:'power', bikes:['surron','talaria','segway'], name:'NAB 72V 45Ah Race Battery', brand:'NAB', level:'advanced', desc:'70KW+ output. The most powerful bolt-on battery upgrade available. Transforms your ride completely.', price:2899, badge:'top', link:'https://www.amazon.com/s?k=NAB+72V+45Ah+race+battery+surron&tag=ripkit-20' },
-  { id:3, cat:'power', bikes:['surron','talaria'], name:'EBMX XLB-60 Race Motor Kit', brand:'EBMX', level:'advanced', desc:'High-response race motor with instant torque gains. For riders who want maximum aggression.', price:1249, badge:'hot', link:'https://www.amazon.com/s?k=EBMX+XLB-60+motor+kit&tag=ripkit-20' },
-  { id:4, cat:'power', bikes:['surron','talaria','segway','stark','ktm'], name:'Torp TC1000 Controller', brand:'Torp', level:'advanced', desc:'Advanced programmable controller with app tuning. Bluetooth configurable for multiple ride modes.', price:1325, badge:'', link:'https://www.amazon.com/s?k=Torp+TC1000+controller&tag=ripkit-20' },
-  { id:5, cat:'power', bikes:['surron','talaria','segway'], name:'DHS 80V 45Ah Race Battery', brand:'DHS', level:'advanced', desc:'RS50 cell technology. 44KW peak output. The choice of serious racers.', price:2499, badge:'top', link:'https://www.amazon.com/s?k=DHS+80V+45Ah+battery&tag=ripkit-20' },
-  { id:6, cat:'power', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Fast Charger 10A', brand:'EBMX', level:'beginner', desc:'Cut charge time in half. 10A fast charger compatible with stock and upgraded battery systems.', price:189, badge:'top', link:'https://www.amazon.com/s?k=ebike+10A+fast+charger&tag=ripkit-20' },
-  { id:55, cat:'power', bikes:['super73'], name:'Chi Battery Systems Range Extender', brand:'Chi Battery', level:'beginner', desc:'The most popular Super 73 range upgrade. Bolt-on extra battery. Doubles your range instantly.', price:699, badge:'hot', link:'https://www.amazon.com/s?k=Chi+Battery+Systems+Super+73&tag=ripkit-20' },
-
-  // SUSPENSION
-  { id:7, cat:'suspension', bikes:['surron','talaria'], name:'EXT Racing Rear Shock', brand:'EXT', level:'advanced', desc:'Premium Italian-made shock. Fully adjustable compression and rebound. Transforms trail feel instantly.', price:849, badge:'top', link:'https://www.amazon.com/s?k=EXT+Racing+rear+shock+surron&tag=ripkit-20' },
-  { id:8, cat:'suspension', bikes:['surron','talaria'], name:'FastAce Upgraded Fork Set', brand:'FastAce', level:'advanced', desc:'Bolt-on fork upgrade with improved damping. Night and day difference on rough terrain.', price:599, badge:'hot', link:'https://www.amazon.com/s?k=FastAce+fork+surron&tag=ripkit-20' },
-  { id:9, cat:'suspension', bikes:['surron','talaria','segway'], name:'Linkage & Swingarm Kit', brand:'KO Moto', level:'advanced', desc:'Extended swingarm for better stability at speed. Popular for street riding setups.', price:449, badge:'', link:'https://www.amazon.com/s?k=KO+Moto+swingarm+surron&tag=ripkit-20' },
-  { id:10, cat:'suspension', bikes:['surron','talaria','segway','ktm'], name:'DNM Rear Shock Upgrade', brand:'DNM', level:'beginner', desc:'Budget-friendly performance shock. Huge improvement over stock. Great first suspension upgrade.', price:189, badge:'', link:'https://www.amazon.com/s?k=DNM+rear+shock+electric+dirtbike&tag=ripkit-20' },
-
-  // BRAKES
-  { id:11, cat:'brakes', bikes:['surron','talaria','segway','stark','ktm'], name:'Formula E-Moto Brake Kit', brand:'Formula', level:'advanced', desc:'Full front + rear brake kit. Italian precision hydraulics purpose-built for e-moto use.', price:479, badge:'', link:'https://www.amazon.com/s?k=Formula+Cura+e-moto+brake+kit&tag=ripkit-20' },
-  { id:12, cat:'brakes', bikes:['surron','talaria','segway'], name:'Oversized Brake Rotor Kit', brand:'Warp 9', level:'beginner', desc:'220mm front rotor upgrade. Massive stopping power increase. Easy bolt-on install.', price:129, badge:'hot', link:'https://www.amazon.com/s?k=Warp+9+220mm+brake+rotor+surron&tag=ripkit-20' },
-  { id:13, cat:'brakes', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Hayes Dominion Brakes', brand:'Hayes', level:'advanced', desc:'Four-piston caliper set. Trusted by downhill mountain bikers worldwide. Excellent modulation.', price:299, badge:'', link:'https://www.amazon.com/s?k=Hayes+Dominion+A4+brakes&tag=ripkit-20' },
-  { id:14, cat:'brakes', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Sintered Brake Pads Set', brand:'Galfer', level:'beginner', desc:'High-heat sintered pads. Lasts 3x longer than stock. Zero fade under heavy braking.', price:45, badge:'', link:'https://www.amazon.com/s?k=Galfer+sintered+brake+pads+electric+bike&tag=ripkit-20' },
-
-  // WHEELS & TIRES
-  { id:15, cat:'wheels', bikes:['surron','talaria'], name:'Warp 9 16/19 Anodized Wheelset', brand:'Warp 9', level:'advanced', desc:'CNC machined anodized hubs. Available in multiple colors. The gold standard in Sur-Ron wheels.', price:1164, badge:'hot', link:'https://www.amazon.com/s?k=Warp+9+surron+wheelset+anodized&tag=ripkit-20' },
-  { id:16, cat:'wheels', bikes:['surron','talaria','segway','stark','ktm'], name:'Dunlop MX33 Tire Set', brand:'Dunlop', level:'beginner', desc:'Front and rear MX tires. Aggressive knob pattern for maximum off-road grip in all conditions.', price:139, badge:'top', link:'https://www.amazon.com/s?k=Dunlop+MX33+tires+dirt+bike&tag=ripkit-20' },
-  { id:17, cat:'wheels', bikes:['surron','talaria','segway','stark','ktm'], name:'Kenda K760 Trackmaster Tires', brand:'Kenda', level:'beginner', desc:'Popular budget trail tire. Great all-around grip. Available in multiple sizes.', price:89, badge:'', link:'https://www.amazon.com/s?k=Kenda+K760+Trackmaster+tires&tag=ripkit-20' },
-  { id:18, cat:'wheels', bikes:['surron','talaria','segway','stark','ktm'], name:'Heavy Duty Tube Set', brand:'Tubliss', level:'beginner', desc:'Eliminates pinch flats. More volume in the tire for better traction. Never get a flat again.', price:89, badge:'', link:'https://www.amazon.com/s?k=heavy+duty+dirt+bike+tubes&tag=ripkit-20' },
-  { id:56, cat:'wheels', bikes:['super73'], name:'Super 73 Fat Tire Upgrade', brand:'Kenda', level:'beginner', desc:'Wider fat tire for Super 73. Better street grip and that signature chunky look.', price:79, badge:'new', link:'https://www.amazon.com/s?k=Super+73+fat+tire+replacement&tag=ripkit-20' },
-
-  // LIGHTING
-  { id:19, cat:'lighting', bikes:['surron','talaria','segway','stark','ktm'], name:'Baja Designs Squadron Pro LED', brand:'Baja Designs', level:'beginner', desc:'The best aftermarket headlight. 5,000 lumens. Plug and play. Completely transforms night riding.', price:349, badge:'hot', link:'https://www.amazon.com/s?k=Baja+Designs+Squadron+Pro+LED&tag=ripkit-20' },
-  { id:20, cat:'lighting', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'LED Light Bar Kit', brand:'Auxbeam', level:'beginner', desc:'21" curved LED bar. Flood + spot combo. Includes wiring harness and switch. Insane brightness.', price:79, badge:'', link:'https://www.amazon.com/s?k=Auxbeam+21+inch+LED+light+bar&tag=ripkit-20' },
-  { id:21, cat:'lighting', bikes:['surron'], name:'Gigigo V2 Headlight', brand:'Gigigo', level:'beginner', desc:'The most popular Sur-Ron headlight upgrade. DRL ring, high/low beam, plug-and-play install.', price:149, badge:'new', link:'https://www.amazon.com/s?k=Gigigo+V2+headlight+surron&tag=ripkit-20' },
-  { id:22, cat:'lighting', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Multi-Function Tail Light', brand:'Generic', level:'beginner', desc:'Brake light + turn signals in one unit. Weather sealed. Huge safety upgrade for street riding.', price:49, badge:'hot', link:'https://www.amazon.com/s?k=electric+dirt+bike+tail+light+brake+turn+signal&tag=ripkit-20' },
-
-  // BODY & STYLE
-  { id:23, cat:'body', bikes:['surron','talaria','segway','stark','ktm'], name:'Full Graphics Kit', brand:'Factory Effex', level:'beginner', desc:'Professionally designed graphics. Multiple colorways. UV resistant. Completely changes the look.', price:129, badge:'', link:'https://www.amazon.com/s?k=Factory+Effex+graphics+kit+dirt+bike&tag=ripkit-20' },
-  { id:24, cat:'body', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Custom Seat Cover', brand:'GUTS Racing', level:'beginner', desc:'Anti-slip material. Custom colors and patterns. Direct replacement — no trimming needed.', price:69, badge:'', link:'https://www.amazon.com/s?k=GUTS+Racing+seat+cover+dirt+bike&tag=ripkit-20' },
-  { id:25, cat:'body', bikes:['surron','talaria','segway','stark','ktm'], name:'Fender Set (Front + Rear)', brand:'UFO Plastics', level:'beginner', desc:'Replacement plastic fenders in custom colors. Available in 10+ colors. Lightweight and durable.', price:89, badge:'', link:'https://www.amazon.com/s?k=UFO+Plastics+fender+set+dirt+bike&tag=ripkit-20' },
-  { id:26, cat:'body', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Powder Coat Frame Service', brand:'Custom', level:'advanced', desc:'Full frame powder coat — any RAL color. Completely transforms the bike. Worth every penny.', price:299, badge:'hot', link:'https://www.amazon.com/s?k=powder+coat+frame+service+motorcycle&tag=ripkit-20' },
-
-  // HANDLEBARS & GRIPS
-  { id:27, cat:'handlebars', bikes:['surron','talaria','segway','stark','ktm'], name:'Renthal Fatbar Handlebar', brand:'Renthal', level:'beginner', desc:'The go-to handlebar for every serious dirt bike rider. Multiple bends available. Ultra strong.', price:99, badge:'top', link:'https://www.amazon.com/s?k=Renthal+Fatbar+handlebar+dirt+bike&tag=ripkit-20' },
-  { id:28, cat:'handlebars', bikes:['surron','talaria','segway','stark','ktm'], name:'Pro Taper Clamp + Risers', brand:'Pro Taper', level:'beginner', desc:'CNC aluminum bar clamp and riser kit. Multiple heights. Allows any standard handlebar.', price:79, badge:'hot', link:'https://www.amazon.com/s?k=Pro+Taper+bar+clamp+risers&tag=ripkit-20' },
-  { id:29, cat:'handlebars', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'ODI Lock-On Grip Set', brand:'ODI', level:'beginner', desc:'Lock-on grips. No glue needed. Ergonomic taper reduces fatigue. Available in 8 colors.', price:39, badge:'hot', link:'https://www.amazon.com/s?k=ODI+lock+on+grips+dirt+bike&tag=ripkit-20' },
-  { id:30, cat:'handlebars', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Renthal Kevlar Grips', brand:'Renthal', level:'beginner', desc:'Dual-compound Kevlar grips. Lasts 3x longer than standard grips. Excellent vibration damping.', price:29, badge:'new', link:'https://www.amazon.com/s?k=Renthal+Kevlar+grips+motorcycle&tag=ripkit-20' },
-  { id:31, cat:'handlebars', bikes:['surron','talaria','segway','stark','ktm'], name:'Handlebar Pad', brand:'Tusk', level:'beginner', desc:'High-density foam bar pad. Protects your chest on impact. Required for MX and trail riding.', price:19, badge:'', link:'https://www.amazon.com/s?k=handlebar+pad+dirt+bike+foam&tag=ripkit-20' },
-  { id:32, cat:'handlebars', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Brake & Clutch Lever Set', brand:'Zeta', level:'beginner', desc:'Adjustable reach levers. Folds on impact to prevent snapping. Available in 6 colors.', price:69, badge:'', link:'https://www.amazon.com/s?k=Zeta+adjustable+brake+lever+set+dirt+bike&tag=ripkit-20' },
-
-  // PEGS & PEDALS
-  { id:33, cat:'pegs', bikes:['surron','talaria','segway','stark','ktm'], name:'Adjustable Foot Peg Set', brand:'GritShift', level:'beginner', desc:'CNC aluminum pegs with replaceable stainless pins. Ultra grippy. Multiple color anodize options.', price:89, badge:'hot', link:'https://www.amazon.com/s?k=GritShift+CNC+foot+pegs+electric+dirt+bike&tag=ripkit-20' },
-  { id:34, cat:'pegs', bikes:['surron','talaria','segway','stark','ktm'], name:'Wide Platform MX Pegs', brand:'Raptor', level:'beginner', desc:'Extra-wide platform pegs for better foot control. Aggressive spike pattern for max grip.', price:65, badge:'new', link:'https://www.amazon.com/s?k=wide+platform+MX+foot+pegs+dirt+bike&tag=ripkit-20' },
-  { id:35, cat:'pegs', bikes:['super73'], name:'Super 73 Platform Pedals', brand:'Deity Components', level:'beginner', desc:'Flat platform pedals for Super 73. CNC aluminum body, sealed bearings, massive grip pins.', price:79, badge:'top', link:'https://www.amazon.com/s?k=Deity+Components+platform+pedals&tag=ripkit-20' },
-  { id:36, cat:'pegs', bikes:['super73'], name:'Folding Pedal Set', brand:'Xpedo', level:'beginner', desc:'Lightweight folding pedals for Super 73 street riding. Folds flat when not in use.', price:49, badge:'', link:'https://www.amazon.com/s?k=Xpedo+folding+pedals+ebike&tag=ripkit-20' },
-  { id:37, cat:'pegs', bikes:['surron','talaria','segway','stark','ktm'], name:'Peg Extenders', brand:'KO Moto', level:'beginner', desc:'Widens your peg stance for better stability. Popular mod for taller riders.', price:35, badge:'', link:'https://www.amazon.com/s?k=foot+peg+extenders+dirt+bike&tag=ripkit-20' },
-  { id:38, cat:'pegs', bikes:['surron','talaria','segway','stark','ktm'], name:'Spike Pin Replacement Kit', brand:'GritShift', level:'beginner', desc:'Replacement grip pins for worn pegs. 20-piece kit. Keeps your pegs biting like new.', price:15, badge:'', link:'https://www.amazon.com/s?k=foot+peg+spike+pin+replacement+kit&tag=ripkit-20' },
-
-  // DRIVETRAIN
-  { id:39, cat:'drivetrain', bikes:['surron','talaria','segway','ktm'], name:'Gold O-Ring Chain', brand:'RK Chain', level:'beginner', desc:'420 pitch O-ring chain. Lasts much longer than stock. Includes master link. Gold looks sick.', price:49, badge:'hot', link:'https://www.amazon.com/s?k=RK+420+O-ring+chain+gold&tag=ripkit-20' },
-  { id:40, cat:'drivetrain', bikes:['surron','talaria','segway','ktm'], name:'Sprocket Set (Front + Rear)', brand:'GritShift', level:'advanced', desc:'Steel front + aluminum rear sprocket. Choose your ratio for more torque or more top speed.', price:89, badge:'new', link:'https://www.amazon.com/s?k=GritShift+sprocket+set+surron+talaria&tag=ripkit-20' },
-  { id:41, cat:'drivetrain', bikes:['surron','talaria','segway','stark','ktm'], name:'Chain Guide + Slider Kit', brand:'Works Connection', level:'beginner', desc:'Prevents chain drop on big jumps. Essential for any aggressive rider. Easy install.', price:45, badge:'hot', link:'https://www.amazon.com/s?k=Works+Connection+chain+guide+slider&tag=ripkit-20' },
-
-  // PROTECTION
-  { id:42, cat:'protection', bikes:['surron','talaria','segway','stark','ktm'], name:'Bash Guard (CNC Aluminum)', brand:'KO Moto', level:'beginner', desc:'Protects your motor and battery from rock strikes. Required for serious trail riding. Bolt-on.', price:89, badge:'', link:'https://www.amazon.com/s?k=KO+Moto+bash+guard+surron&tag=ripkit-20' },
-  { id:43, cat:'protection', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Hand Guards (Full Wrap)', brand:'Acerbis', level:'beginner', desc:'Full wrap hand guards. Protects hands from branches, rocks, and tip-over damage on levers.', price:59, badge:'', link:'https://www.amazon.com/s?k=Acerbis+full+wrap+hand+guards+dirt+bike&tag=ripkit-20' },
-  { id:44, cat:'protection', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Frame Guard Set', brand:'Polisport', level:'beginner', desc:'Grip tape style frame protection. Prevents cosmetic wear. Custom cut for each model.', price:35, badge:'', link:'https://www.amazon.com/s?k=Polisport+frame+guard+protection&tag=ripkit-20' },
-  { id:45, cat:'protection', bikes:['surron','talaria','segway','stark','ktm'], name:'Motor Cover Mud Defense', brand:'Custom', level:'beginner', desc:'Keeps mud and water off your motor in the worst conditions. Extends motor life significantly.', price:59, badge:'', link:'https://www.amazon.com/s?k=electric+dirt+bike+motor+mud+cover&tag=ripkit-20' },
-
-  // ELECTRONICS
-  { id:46, cat:'electronics', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'GPS Phone Mount (Waterproof)', brand:'RAM Mounts', level:'beginner', desc:'Vibration-dampening mount. Fits all phones. Waterproof. Never lose your phone on the trails.', price:49, badge:'', link:'https://www.amazon.com/s?k=RAM+Mounts+waterproof+motorcycle+phone+mount&tag=ripkit-20' },
-  { id:47, cat:'electronics', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'USB Charging Port Kit', brand:'Dual USB', level:'beginner', desc:'Adds USB-A and USB-C charging ports tapped from your battery. Charge your phone on the trail.', price:29, badge:'new', link:'https://www.amazon.com/s?k=USB+charging+port+kit+motorcycle+handlebar&tag=ripkit-20' },
-  { id:48, cat:'electronics', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Kill Switch Lanyard', brand:'Safety First', level:'beginner', desc:'Magnetic kill switch. Attaches to your wrist. Automatically cuts power if you fall off.', price:25, badge:'', link:'https://www.amazon.com/s?k=magnetic+kill+switch+lanyard+dirt+bike&tag=ripkit-20' },
-  { id:49, cat:'electronics', bikes:['surron','talaria','segway'], name:'Display & Speedometer Upgrade', brand:'EBMX', level:'advanced', desc:'Color LCD display. Shows speed, battery %, power mode, and trip data. Replaces basic stock display.', price:149, badge:'new', link:'https://www.amazon.com/s?k=EBMX+LCD+display+speedometer+surron&tag=ripkit-20' },
-
-  // COSMETIC
-  { id:50, cat:'cosmetic', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'Anodized Bolt Kit (Ti Blue)', brand:'Titanium Pro', level:'beginner', desc:'100-piece anodized aluminum bolt kit. Titanium blue. Massive visual upgrade for minimal cost.', price:65, badge:'hot', link:'https://www.amazon.com/s?k=anodized+titanium+bolt+kit+motorcycle&tag=ripkit-20' },
-  { id:51, cat:'cosmetic', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'LED Wheel Rings (Color)', brand:'Moto Rings', level:'beginner', desc:'LED light rings for your wheels. Multiple color modes. USB rechargeable. Pure TikTok content.', price:49, badge:'new', link:'https://www.amazon.com/s?k=LED+wheel+rings+motorcycle+color&tag=ripkit-20' },
-  { id:52, cat:'cosmetic', bikes:['surron','talaria','segway','stark','ktm','super73'], name:'CNC Brake Reservoir Cap', brand:'CNC Racing', level:'beginner', desc:'Billet aluminum reservoir cap. Tiny detail that looks amazing. Available in 6 anodize colors.', price:29, badge:'', link:'https://www.amazon.com/s?k=CNC+billet+brake+reservoir+cap+motorcycle&tag=ripkit-20' },
-  { id:53, cat:'cosmetic', bikes:['surron','talaria','segway','stark','ktm'], name:'Number Plate Kit', brand:'UFO Plastics', level:'beginner', desc:'Front and side number plates. Blank or custom printed. Multiple colorways available.', price:55, badge:'', link:'https://www.amazon.com/s?k=UFO+Plastics+number+plate+kit+dirt+bike&tag=ripkit-20' },
-];
-
-let buildList = [];
-let currentCat = 'all';
-let currentBike = 'surron';
-let currentBudget = 3000;
-
-function renderParts() {
-  const grid = document.getElementById('partsGrid');
-  const noResults = document.getElementById('noResults');
-  
-  let filtered = parts.filter(p => {
-    const bikeMatch = p.bikes.includes(currentBike);
-    const catMatch = currentCat === 'all' || p.cat === currentCat;
-    const budgetMatch = p.price <= currentBudget;
-    return bikeMatch && catMatch && budgetMatch;
-  });
-
-  document.getElementById('resultsCount').textContent = filtered.length;
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '';
-    noResults.style.display = 'block';
-    return;
-  }
-  noResults.style.display = 'none';
-
-  grid.innerHTML = filtered.map(p => {
-    const badgeHtml = p.badge ? `<div class="badge badge-${p.badge}">${p.badge.toUpperCase()}</div>` : '';
-    const inBuild = buildList.find(b => b.id === p.id);
-    const levelHtml = `<span class="part-level level-${p.level}">${p.level.toUpperCase()}</span>`;
-    return `<div class="part-card">
-      ${badgeHtml}
-      <div class="part-cat">${p.cat.toUpperCase()}</div>
-      <div class="part-name">${p.name}</div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div class="part-brand">${p.brand}</div>
-        ${levelHtml}
-      </div>
-      <div class="part-desc">${p.desc}</div>
-      <div class="part-bottom">
-        <div>
-          <div class="part-price">$${p.price.toLocaleString()}</div>
-          <div class="part-price-sub">avg. retail</div>
+  <div class="rk-hero-right">
+    <div class="rk-bike-showcase-title">Supported Platforms</div>
+    <div class="rk-bike-showcase">
+      <div class="rk-showcase-card active" onclick="heroSelect('surron',this)">
+        <div class="rk-sc-left">
+          <div class="rk-sc-name" style="color:#FF4D00">Sur-Ron</div>
+          <div class="rk-sc-models">Light Bee X / Ultra Bee</div>
         </div>
-        <div class="part-actions">
-          <a href="${p.link}" target="_blank" class="btn-shop">Amazon ↗</a>
-          <button class="btn-add ${inBuild ? 'added' : ''}" onclick="toggleBuildItem(${p.id})">${inBuild ? '✓' : '+'}</button>
+        <div class="rk-sc-right">
+          <span class="rk-sc-tag">Most Popular</span>
+          <span class="rk-sc-arrow">→</span>
         </div>
       </div>
-    </div>`;
-  }).join('');
-}
-
-function filterCat(cat, btn) {
-  currentCat = cat;
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderParts();
-}
-
-function selectBike(card, bike) {
-  document.querySelectorAll('.bike-card').forEach(c => c.classList.remove('active'));
-  card.classList.add('active');
-  currentBike = bike;
-  renderParts();
-}
-
-function updateBudget(val) {
-  currentBudget = parseInt(val);
-  document.getElementById('budgetVal').textContent = val == 3000 ? 'ALL' : '$' + parseInt(val).toLocaleString();
-  renderParts();
-}
-
-function resetBudget() {
-  currentBudget = 3000;
-  document.getElementById('budgetSlider').value = 3000;
-  document.getElementById('budgetVal').textContent = 'ALL';
-  renderParts();
-}
-
-function toggleBuildItem(id) {
-  const part = parts.find(p => p.id === id);
-  const idx = buildList.findIndex(b => b.id === id);
-  if (idx > -1) { buildList.splice(idx, 1); } 
-  else { buildList.push(part); }
-  updateBuildUI();
-  renderParts();
-}
-
-function updateBuildUI() {
-  document.getElementById('buildCount').textContent = buildList.length;
-  const total = buildList.reduce((sum, p) => sum + p.price, 0);
-  document.getElementById('buildTotal').textContent = '$' + total.toLocaleString();
-  const itemsEl = document.getElementById('buildItems');
-  if (buildList.length === 0) {
-    itemsEl.innerHTML = '<div class="build-empty">No parts added yet.<br>Browse and hit + to add.</div>';
-  } else {
-    itemsEl.innerHTML = buildList.map(p => `
-      <div class="build-item">
-        <div>
-          <div class="build-item-name">${p.name}</div>
-          <div class="build-item-cat">${p.cat.toUpperCase()}</div>
+      <div class="rk-showcase-card" onclick="heroSelect('talaria',this)">
+        <div class="rk-sc-left">
+          <div class="rk-sc-name" style="color:#2979ff">Talaria</div>
+          <div class="rk-sc-models">Sting MX3 / MX4 / XXX</div>
         </div>
-        <div style="display:flex;align-items:center;gap:6px">
-          <div class="build-item-price">$${p.price.toLocaleString()}</div>
-          <button class="remove-btn" onclick="toggleBuildItem(${p.id})">✕</button>
+        <div class="rk-sc-right">
+          <span class="rk-sc-tag">Sur-Ron Killer</span>
+          <span class="rk-sc-arrow">→</span>
         </div>
-      </div>`).join('');
-  }
-}
-
-function toggleBuild() {
-  document.getElementById('buildPanel').classList.toggle('open');
-}
-
-function shareBuild() {
-  const bike = document.querySelector('.bike-card.active .bike-name').textContent;
-  const names = buildList.map(p => `• ${p.name} — $${p.price.toLocaleString()}`).join('\n');
-  const total = buildList.reduce((sum, p) => sum + p.price, 0);
-  const text = `My ${bike} RipKit Build 🔥\n\n${names}\n\nTotal: $${total.toLocaleString()}\n\nBuild yours free at nickz1822.github.io/ripkit`;
-  if (navigator.share) {
-    navigator.share({ title: 'My RipKit Build', text });
-  } else {
-    navigator.clipboard.writeText(text).then(() => alert('Build copied to clipboard! Share it anywhere.'));
-  }
-}
-
-// Back to top button
-window.addEventListener('scroll', () => {
-  const btn = document.getElementById('backTop');
-  if (window.scrollY > 400) btn.classList.add('visible');
-  else btn.classList.remove('visible');
-});
-
-renderParts();
-</script>
-</body>
-</html>
+      </div>
+      <div class="rk-showcase-card" onclick="heroSelect('segway',this)">
