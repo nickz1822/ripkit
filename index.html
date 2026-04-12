@@ -1,560 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RipKit — Electric Dirt Bike Parts</title>
-  <meta name="description" content="Browse 200+ aftermarket parts for Sur-Ron, Talaria, Segway, Super 73, and 79 Moto. Build your kit, save your list, share your wishlist.">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --orange: #FF4D00;
-      --orange-dim: rgba(255,77,0,0.1);
-      --bg: #0d0d0d;
-      --bg2: #141414;
-      --bg3: #1c1c1c;
-      --border: rgba(255,255,255,0.08);
-      --text: #ffffff;
-      --muted: rgba(255,255,255,0.45);
-      --font: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
-    }
-    html { background: #0d0d0d; }
-    body { background: #0d0d0d; color: #fff; font-family: var(--font); overflow-x: hidden; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RipKit — Electric Dirt Bike Parts</title>
+<meta name="description" content="Browse 200+ aftermarket parts for Sur-Ron, Talaria, Segway, Super 73, and 79 Moto. Build your kit, save your list, share your wishlist. Free always.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#FF4D00;--odim:rgba(255,77,0,0.1);
+  --bg:#0d0d0d;--bg2:#141414;--bg3:#1c1c1c;
+  --border:rgba(255,255,255,0.08);--text:#fff;--muted:rgba(255,255,255,0.45);
+  --font:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
+}
+html{background:#0d0d0d}
+body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
 
-    /* ── NAV ── */
-    .rk-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: 56px;
-      background: rgba(13,13,13,0.96); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .rk-logo { font-size: 22px; font-weight: 900; letter-spacing: 2px; color: #fff; text-decoration: none; }
-    .rk-logo span { color: var(--orange); }
-    .rk-logo small { font-size: 10px; font-weight: 400; color: var(--muted); letter-spacing: 3px; margin-left: 6px; }
-    .rk-nav-right { display: flex; align-items: center; gap: 20px; }
-    .rk-nav-label { font-size: 11px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
-    .rk-build-btn {
-      background: var(--orange); color: #fff; border: none; cursor: pointer;
-      padding: 8px 20px; font-size: 13px; font-weight: 700; letter-spacing: 2px;
-      font-family: var(--font); display: flex; align-items: center; gap: 8px;
-      text-transform: uppercase; transition: background 0.2s;
-    }
-    .rk-build-btn:hover { background: #ff6a2a; }
-    .rk-build-count {
-      background: #fff; color: var(--orange); border-radius: 50%;
-      width: 20px; height: 20px; font-size: 11px; font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
-    }
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;background:rgba(13,13,13,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px;color:#fff;text-decoration:none}
+.logo span{color:var(--orange)}
+.logo small{font-size:10px;font-weight:400;color:var(--muted);letter-spacing:3px;margin-left:6px}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-label{font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.build-btn{background:var(--orange);color:#fff;border:none;cursor:pointer;padding:8px 20px;font-size:13px;font-weight:700;letter-spacing:2px;font-family:var(--font);display:flex;align-items:center;gap:8px;text-transform:uppercase;transition:background .2s}
+.build-btn:hover{background:#ff6a2a}
+.build-count{background:#fff;color:var(--orange);border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center}
 
-    /* ── HERO ── */
-    .rk-hero {
-      padding-top: 56px; display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 100vh; background: #0d0d0d;
-    }
-    .rk-hero-left {
-      padding: 80px 60px 60px;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .rk-hero-eyebrow {
-      font-size: 11px; letter-spacing: 4px; color: var(--orange);
-      text-transform: uppercase; margin-bottom: 20px;
-    }
-    .rk-hero-h1 {
-      font-size: clamp(52px, 6vw, 88px); font-weight: 900;
-      line-height: 0.9; margin-bottom: 24px; text-transform: uppercase;
-    }
-    .rk-hero-h1 span { color: var(--orange); display: block; }
-    .rk-hero-sub {
-      font-size: 17px; color: var(--muted); line-height: 1.6;
-      max-width: 460px; margin-bottom: 40px;
-      font-family: sans-serif; font-weight: 400;
-    }
-    .rk-hero-cta {
-      display: inline-flex; align-items: center; gap: 12px;
-      background: var(--orange); color: #fff; padding: 16px 36px;
-      font-size: 15px; font-weight: 700; letter-spacing: 2px;
-      cursor: pointer; border: none; font-family: var(--font);
-      text-transform: uppercase; transition: all 0.2s; text-decoration: none;
-      width: fit-content;
-    }
-    .rk-hero-cta:hover { background: #ff6a2a; gap: 18px; }
-    .rk-hero-stats {
-      display: flex; gap: 40px; margin-top: 56px; padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-    .rk-stat-num { font-size: 36px; font-weight: 900; color: var(--orange); display: block; }
-    .rk-stat-label { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-top: 4px; display: block; }
+/* HERO */
+.hero{padding-top:56px;display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:#0d0d0d}
+.hero-left{padding:80px 60px 60px;display:flex;flex-direction:column;justify-content:center}
+.hero-eyebrow{font-size:11px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:20px}
+.hero-h1{font-size:clamp(52px,6vw,88px);font-weight:900;line-height:.9;margin-bottom:24px;text-transform:uppercase}
+.hero-h1 span{color:var(--orange);display:block}
+.hero-sub{font-size:17px;color:var(--muted);line-height:1.6;max-width:460px;margin-bottom:40px;font-family:sans-serif;font-weight:400}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;background:var(--orange);color:#fff;padding:16px 36px;font-size:15px;font-weight:700;letter-spacing:2px;cursor:pointer;border:none;font-family:var(--font);text-transform:uppercase;transition:all .2s;text-decoration:none;width:fit-content}
+.hero-cta:hover{background:#ff6a2a;gap:18px}
+.hero-stats{display:flex;gap:40px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border)}
+.stat-num{font-size:36px;font-weight:900;color:var(--orange);display:block}
+.stat-label{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:4px;display:block}
+.hero-right{position:relative;overflow:hidden;background:linear-gradient(135deg,#111 0%,#0d0d0d 100%);border-left:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;padding:80px 50px 60px}
+.hero-right::before{content:'';position:absolute;top:-30%;right:-20%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,77,0,.06) 0%,transparent 70%);pointer-events:none}
+.showcase-title{font-size:11px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:24px}
+.showcase{display:flex;flex-direction:column;gap:10px}
+.sc-card{padding:18px 24px;border:1px solid var(--border);background:#141414;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:space-between}
+.sc-card:hover,.sc-card.active{border-color:var(--orange);background:var(--odim)}
+.sc-left{display:flex;flex-direction:column;gap:3px}
+.sc-name{font-size:20px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.sc-models{font-size:11px;color:var(--muted);letter-spacing:1px}
+.sc-right{display:flex;align-items:center;gap:12px}
+.sc-tag{font-size:9px;letter-spacing:2px;padding:4px 8px;border:1px solid var(--border);color:var(--muted);text-transform:uppercase}
+.sc-card.active .sc-tag{border-color:var(--orange);color:var(--orange)}
+.sc-arrow{font-size:18px;color:var(--muted)}
+.sc-card.active .sc-arrow{color:var(--orange)}
 
-    /* Hero Right */
-    .rk-hero-right {
-      position: relative; overflow: hidden;
-      background: linear-gradient(135deg, #111 0%, #0d0d0d 100%);
-      border-left: 1px solid var(--border);
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 80px 50px 60px;
-    }
-    .rk-hero-right::before {
-      content: ''; position: absolute; top: -30%; right: -20%;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,77,0,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .rk-bike-showcase-title {
-      font-size: 11px; letter-spacing: 4px; color: var(--muted);
-      text-transform: uppercase; margin-bottom: 24px;
-    }
-    .rk-bike-showcase { display: flex; flex-direction: column; gap: 10px; }
-    .rk-showcase-card {
-      padding: 18px 24px; border: 1px solid var(--border);
-      background: #141414; cursor: pointer; transition: all 0.25s;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .rk-showcase-card:hover, .rk-showcase-card.active {
-      border-color: var(--orange); background: var(--orange-dim);
-    }
-    .rk-sc-left { display: flex; flex-direction: column; gap: 3px; }
-    .rk-sc-name { font-size: 20px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
-    .rk-sc-models { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
-    .rk-sc-right { display: flex; align-items: center; gap: 12px; }
-    .rk-sc-tag {
-      font-size: 9px; letter-spacing: 2px; padding: 4px 8px;
-      border: 1px solid var(--border); color: var(--muted); text-transform: uppercase;
-    }
-    .rk-showcase-card.active .rk-sc-tag { border-color: var(--orange); color: var(--orange); }
-    .rk-sc-arrow { font-size: 18px; color: var(--muted); }
-    .rk-showcase-card.active .rk-sc-arrow { color: var(--orange); }
+/* HOW IT WORKS */
+.how{background:#141414;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px}
+.how-inner{max-width:1100px;margin:0 auto}
+.how-title{font-size:11px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:36px;text-align:center}
+.how-steps{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--border)}
+.how-step{background:#141414;padding:32px 28px;position:relative}
+.how-step::after{content:'→';position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--orange);font-size:20px;z-index:1}
+.how-step:last-child::after{display:none}
+.how-num{font-size:48px;font-weight:900;color:rgba(255,77,0,.15);line-height:1;margin-bottom:12px}
+.how-step-title{font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.how-step-desc{font-size:13px;color:var(--muted);line-height:1.5;font-family:sans-serif;font-weight:400}
 
-    /* ── HOW IT WORKS ── */
-    .rk-how {
-      background: #141414; border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border); padding: 60px;
-    }
-    .rk-how-inner { max-width: 1100px; margin: 0 auto; }
-    .rk-how-title {
-      font-size: 11px; letter-spacing: 4px; color: var(--orange);
-      text-transform: uppercase; margin-bottom: 36px; text-align: center;
-    }
-    .rk-how-steps {
-      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 1px; background: var(--border);
-    }
-    .rk-how-step {
-      background: #141414; padding: 32px 28px; position: relative;
-    }
-    .rk-how-step::after {
-      content: '→'; position: absolute; right: -14px; top: 50%;
-      transform: translateY(-50%); color: var(--orange); font-size: 20px; z-index: 1;
-    }
-    .rk-how-step:last-child::after { display: none; }
-    .rk-how-num {
-      font-size: 48px; font-weight: 900; color: rgba(255,77,0,0.15);
-      line-height: 1; margin-bottom: 12px;
-    }
-    .rk-how-step-title {
-      font-size: 16px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; margin-bottom: 8px;
-    }
-    .rk-how-step-desc {
-      font-size: 13px; color: var(--muted); line-height: 1.5;
-      font-family: sans-serif; font-weight: 400;
-    }
+/* ABOUT */
+.about{padding:80px 60px;background:#0d0d0d}
+.about-inner{max-width:1100px;margin:0 auto}
+.about-label{font-size:11px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:20px}
+.about-h2{font-size:clamp(32px,4vw,56px);font-weight:900;text-transform:uppercase;line-height:1;margin-bottom:24px}
+.about-body{font-size:16px;color:var(--muted);line-height:1.7;max-width:700px;font-family:sans-serif;font-weight:400;margin-bottom:48px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.feature{background:#141414;border:1px solid var(--border);padding:28px 24px;transition:border-color .2s}
+.feature:hover{border-color:var(--orange)}
+.feature-icon{font-size:28px;margin-bottom:14px;display:block}
+.feature-title{font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.feature-desc{font-size:12px;color:var(--muted);line-height:1.5;font-family:sans-serif;font-weight:400}
 
-    /* ── WHAT WE DO ── */
-    .rk-about { padding: 80px 60px; background: #0d0d0d; }
-    .rk-about-inner { max-width: 1100px; margin: 0 auto; }
-    .rk-about-label {
-      font-size: 11px; letter-spacing: 4px; color: var(--orange);
-      text-transform: uppercase; margin-bottom: 20px;
-    }
-    .rk-about-h2 {
-      font-size: clamp(32px, 4vw, 56px); font-weight: 900;
-      text-transform: uppercase; line-height: 1; margin-bottom: 24px;
-    }
-    .rk-about-body {
-      font-size: 16px; color: var(--muted); line-height: 1.7;
-      max-width: 700px; font-family: sans-serif; font-weight: 400; margin-bottom: 48px;
-    }
-    .rk-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .rk-feature {
-      background: #141414; border: 1px solid var(--border);
-      padding: 28px 24px; transition: border-color 0.2s;
-    }
-    .rk-feature:hover { border-color: var(--orange); }
-    .rk-feature-icon { font-size: 28px; margin-bottom: 14px; display: block; }
-    .rk-feature-title {
-      font-size: 15px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; margin-bottom: 8px;
-    }
-    .rk-feature-desc {
-      font-size: 12px; color: var(--muted); line-height: 1.5;
-      font-family: sans-serif; font-weight: 400;
-    }
+/* BIKE SELECTOR */
+.select-section{padding:0 60px;max-width:1280px;margin:0 auto}
+.section-label{font-size:11px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;padding:48px 0 24px;border-top:1px solid var(--border)}
+.section-label span{color:var(--orange);margin-right:12px}
+.bike-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.bike-card{background:#141414;border:1px solid var(--border);padding:28px 24px 24px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.bike-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.bike-card:hover{border-color:rgba(255,77,0,.4);background:rgba(255,77,0,.04)}
+.bike-card:hover::before{transform:scaleX(.5)}
+.bike-card.active{border-color:var(--orange);background:var(--odim)}
+.bike-card.active::before{transform:scaleX(1)}
+.bc-num{font-size:48px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;position:absolute;top:12px;right:16px}
+.bc-name{font-size:22px;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.bc-models{font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:12px}
+.bc-desc{font-size:12px;color:var(--muted);line-height:1.4;font-family:sans-serif;font-weight:400;margin-bottom:16px}
+.bc-tag{display:inline-block;font-size:9px;letter-spacing:2px;padding:4px 8px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.bike-card.active .bc-tag{border-color:var(--orange);color:var(--orange)}
+.bc-count{font-size:11px;color:var(--orange);margin-top:8px;display:block;font-weight:700}
 
-    /* ── BIKE SELECTOR ── */
-    .rk-select-section { padding: 0 60px; max-width: 1280px; margin: 0 auto; }
-    .rk-section-label {
-      font-size: 11px; letter-spacing: 4px; color: var(--muted);
-      text-transform: uppercase; padding: 48px 0 24px;
-      border-top: 1px solid var(--border);
-    }
-    .rk-section-label span { color: var(--orange); margin-right: 12px; }
-    .rk-bike-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr);
-      gap: 16px; margin-bottom: 0;
-    }
-    .rk-bike-card {
-      background: #141414; border: 1px solid var(--border);
-      padding: 28px 24px 24px; cursor: pointer; transition: all 0.25s;
-      position: relative; overflow: hidden;
-    }
-    .rk-bike-card::before {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-      background: var(--orange); transform: scaleX(0); transform-origin: left;
-      transition: transform 0.3s;
-    }
-    .rk-bike-card:hover { border-color: rgba(255,77,0,0.4); background: rgba(255,77,0,0.04); }
-    .rk-bike-card:hover::before { transform: scaleX(0.5); }
-    .rk-bike-card.active { border-color: var(--orange); background: var(--orange-dim); }
-    .rk-bike-card.active::before { transform: scaleX(1); }
-    .rk-bc-num {
-      font-size: 48px; font-weight: 900; color: rgba(255,255,255,0.04);
-      line-height: 1; position: absolute; top: 12px; right: 16px;
-    }
-    .rk-bc-name {
-      font-size: 22px; font-weight: 900; letter-spacing: 1px;
-      text-transform: uppercase; margin-bottom: 6px;
-    }
-    .rk-bc-models { font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-bottom: 12px; }
-    .rk-bc-desc {
-      font-size: 12px; color: var(--muted); line-height: 1.4;
-      font-family: sans-serif; font-weight: 400; margin-bottom: 16px;
-    }
-    .rk-bc-tag {
-      display: inline-block; font-size: 9px; letter-spacing: 2px; padding: 4px 8px;
-      text-transform: uppercase; border: 1px solid var(--border); color: var(--muted);
-    }
-    .rk-bike-card.active .rk-bc-tag { border-color: var(--orange); color: var(--orange); }
-    .rk-bc-count { font-size: 11px; color: var(--orange); margin-top: 8px; display: block; font-weight: 700; }
+/* PARTS SECTION */
+.parts-section{max-width:1280px;margin:0 auto;padding:0 60px 80px;display:none}
+.parts-section.visible{display:block}
+.parts-header{display:flex;align-items:center;justify-content:space-between;padding:36px 0 28px;border-top:1px solid var(--border);margin-top:24px}
+.parts-heading{font-size:11px;letter-spacing:4px;color:var(--muted);text-transform:uppercase}
+.parts-heading span{color:var(--orange);margin-right:12px}
+.budget-bar{display:flex;align-items:center;gap:16px;padding:14px 20px;background:#141414;border:1px solid var(--border);margin-bottom:24px}
+.budget-label{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.budget-val{font-size:18px;font-weight:900;color:var(--orange);min-width:80px}
+.budget-slider{flex:1;accent-color:var(--orange);cursor:pointer}
+.budget-reset{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;cursor:pointer;padding:6px 12px;border:1px solid var(--border);background:none;font-family:var(--font);transition:all .2s}
+.budget-reset:hover{border-color:var(--orange);color:var(--orange)}
+.two-panel{display:grid;grid-template-columns:210px 1fr;gap:24px}
+.cat-sidebar{display:flex;flex-direction:column;gap:5px}
+.cat-btn{display:flex;align-items:center;gap:10px;padding:11px 14px;background:#141414;border:1px solid var(--border);cursor:pointer;transition:all .2s;text-align:left;width:100%;font-family:var(--font);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.cat-btn:hover{border-color:rgba(255,77,0,.4);color:#fff}
+.cat-btn.active{border-color:var(--orange);background:var(--odim);color:var(--orange)}
+.cat-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0}
+.cat-count{margin-left:auto;font-size:10px;background:rgba(255,255,255,.06);padding:2px 6px;border-radius:2px;flex-shrink:0}
+.cat-btn.active .cat-count{background:rgba(255,77,0,.2);color:var(--orange)}
+.results-bar{display:flex;align-items:center;margin-bottom:16px}
+.results-count{font-size:13px;color:var(--muted);font-family:sans-serif}
+.results-count strong{color:#fff}
+.parts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.part-card{background:#141414;border:1px solid var(--border);padding:20px;display:flex;flex-direction:column;gap:10px;position:relative;transition:border-color .2s}
+.part-card:hover{border-color:rgba(255,77,0,.3)}
+.part-badge{position:absolute;top:12px;right:12px;font-size:9px;font-weight:900;letter-spacing:2px;padding:3px 8px;text-transform:uppercase}
+.part-badge.hot{background:var(--orange);color:#fff}
+.part-badge.top{background:#f5c518;color:#000}
+.part-badge.new{background:#00c853;color:#fff}
+.part-cat{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.part-name{font-size:16px;font-weight:700;letter-spacing:.5px;line-height:1.2;text-transform:uppercase;padding-right:50px}
+.part-meta{display:flex;align-items:center;gap:8px}
+.part-brand{font-size:11px;color:var(--muted)}
+.part-level{font-size:9px;letter-spacing:2px;padding:3px 7px;text-transform:uppercase}
+.part-level.beginner{background:rgba(0,200,83,.15);color:#00c853}
+.part-level.advanced{background:rgba(255,77,0,.15);color:var(--orange)}
+.part-desc{font-size:12px;color:var(--muted);line-height:1.5;font-family:sans-serif;font-weight:400;flex:1}
+.part-bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:auto}
+.part-price{font-size:20px;font-weight:900}
+.part-price-sub{font-size:11px;color:var(--muted);font-family:sans-serif}
+.part-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.shop-link{font-size:10px;letter-spacing:1px;color:var(--muted);text-decoration:none;padding:5px 8px;border:1px solid var(--border);transition:all .2s;font-family:var(--font);white-space:nowrap}
+.shop-link:hover{border-color:var(--orange);color:var(--orange)}
+.add-btn{width:32px;height:32px;background:var(--orange);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;font-family:var(--font)}
+.add-btn:hover{background:#ff6a2a}
+.add-btn.added{background:#00c853}
+.no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted);font-size:14px;font-family:sans-serif}
 
-    /* ── PARTS SECTION ── */
-    .rk-parts-section {
-      max-width: 1280px; margin: 0 auto; padding: 0 60px 80px;
-      display: none;
-    }
-    .rk-parts-section.visible { display: block; }
-    .rk-parts-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 36px 0 28px; border-top: 1px solid var(--border); margin-top: 24px;
-    }
-    .rk-parts-heading {
-      font-size: 11px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase;
-    }
-    .rk-parts-heading span { color: var(--orange); margin-right: 12px; }
-    .rk-parts-heading .bike-color { margin-left: 4px; }
+/* BUILD PANEL */
+.build-panel{position:fixed;top:0;right:-460px;width:440px;height:100vh;background:#141414;border-left:1px solid var(--border);z-index:200;display:flex;flex-direction:column;transition:right .35s cubic-bezier(.4,0,.2,1);box-shadow:-20px 0 60px rgba(0,0,0,.5)}
+.build-panel.open{right:0}
+.build-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
+.build-title{font-size:14px;font-weight:900;letter-spacing:3px;text-transform:uppercase}
+.build-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px;transition:color .2s}
+.build-close:hover{color:#fff}
+.build-bike-label{padding:10px 24px;background:var(--odim);border-bottom:1px solid rgba(255,77,0,.2);font-size:11px;letter-spacing:2px;color:var(--orange);text-transform:uppercase;flex-shrink:0}
+.build-items{flex:1;overflow-y:auto;padding:16px 24px}
+.build-empty{text-align:center;color:var(--muted);font-size:14px;font-family:sans-serif;padding:40px 0;line-height:1.6}
+.build-item{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);gap:12px}
+.build-item-name{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.build-item-cat{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.build-item-price{font-size:14px;font-weight:900;white-space:nowrap}
+.remove-btn{background:none;border:1px solid var(--border);color:var(--muted);width:26px;height:26px;cursor:pointer;font-size:12px;flex-shrink:0;transition:all .2s}
+.remove-btn:hover{border-color:#ff4444;color:#ff4444}
+.build-footer{padding:20px 24px;border-top:1px solid var(--border);flex-shrink:0}
+.build-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px}
+.build-total-label{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.build-total{font-size:32px;font-weight:900;color:var(--orange)}
+.save-section{margin-bottom:14px}
+.save-label{font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;display:block;line-height:1.5;font-family:sans-serif}
+.save-row{display:flex;gap:8px}
+.email-input{flex:1;background:#0d0d0d;border:1px solid var(--border);color:#fff;padding:10px 14px;font-size:13px;font-family:sans-serif;outline:none;transition:border-color .2s}
+.email-input:focus{border-color:var(--orange)}
+.email-input::placeholder{color:var(--muted)}
+.save-btn{background:#1c1c1c;border:1px solid var(--border);color:#fff;padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;font-family:var(--font);text-transform:uppercase;transition:all .2s;white-space:nowrap}
+.save-btn:hover{border-color:var(--orange);color:var(--orange)}
+.share-link-row{display:flex;gap:8px;margin-bottom:14px}
+.share-link-input{flex:1;background:#0d0d0d;border:1px solid var(--border);color:var(--muted);padding:8px 12px;font-size:11px;font-family:monospace;outline:none}
+.copy-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:8px 12px;font-size:10px;letter-spacing:1px;cursor:pointer;font-family:var(--font);text-transform:uppercase;transition:all .2s;white-space:nowrap}
+.copy-btn:hover{border-color:var(--orange);color:var(--orange)}
+.share-btn{width:100%;background:var(--orange);color:#fff;border:none;padding:14px;font-size:13px;font-weight:700;letter-spacing:2px;cursor:pointer;font-family:var(--font);text-transform:uppercase;transition:background .2s}
+.share-btn:hover{background:#ff6a2a}
 
-    /* Budget */
-    .rk-budget-bar {
-      display: flex; align-items: center; gap: 16px;
-      padding: 14px 20px; background: #141414; border: 1px solid var(--border);
-      margin-bottom: 24px;
-    }
-    .rk-budget-label { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; white-space: nowrap; }
-    .rk-budget-val { font-size: 18px; font-weight: 900; color: var(--orange); min-width: 80px; }
-    .rk-budget-slider { flex: 1; accent-color: var(--orange); cursor: pointer; height: 4px; }
-    .rk-budget-reset {
-      font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
-      cursor: pointer; padding: 6px 12px; border: 1px solid var(--border);
-      background: none; font-family: var(--font); transition: all 0.2s;
-    }
-    .rk-budget-reset:hover { border-color: var(--orange); color: var(--orange); }
+/* FOOTER */
+.site-footer{background:#141414;border-top:1px solid var(--border);padding:40px 60px;display:flex;align-items:center;justify-content:space-between}
+.footer-logo{font-size:18px;font-weight:900;letter-spacing:2px}
+.footer-logo span{color:var(--orange)}
+.footer-text{font-size:12px;color:var(--muted);font-family:sans-serif;margin-top:6px}
+.footer-links{display:flex;gap:24px}
+.footer-link{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;text-decoration:none;transition:color .2s}
+.footer-link:hover{color:var(--orange)}
 
-    /* Two-panel */
-    .rk-two-panel { display: grid; grid-template-columns: 210px 1fr; gap: 24px; }
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:#00c853;color:#fff;padding:14px 28px;font-size:13px;font-weight:700;letter-spacing:1px;z-index:300;transition:transform .3s;white-space:nowrap;font-family:var(--font);text-transform:uppercase}
+.toast.show{transform:translateX(-50%) translateY(0)}
 
-    /* Category sidebar */
-    .rk-cat-sidebar { display: flex; flex-direction: column; gap: 5px; }
-    .rk-cat-btn {
-      display: flex; align-items: center; gap: 10px;
-      padding: 11px 14px; background: #141414; border: 1px solid var(--border);
-      cursor: pointer; transition: all 0.2s; text-align: left; width: 100%;
-      font-family: var(--font); font-size: 12px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .rk-cat-btn:hover { border-color: rgba(255,77,0,0.4); color: #fff; }
-    .rk-cat-btn.active { border-color: var(--orange); background: var(--orange-dim); color: var(--orange); }
-    .rk-cat-icon { font-size: 15px; width: 18px; text-align: center; flex-shrink: 0; }
-    .rk-cat-count {
-      margin-left: auto; font-size: 10px; background: rgba(255,255,255,0.06);
-      padding: 2px 6px; border-radius: 2px; flex-shrink: 0;
-    }
-    .rk-cat-btn.active .rk-cat-count { background: rgba(255,77,0,0.2); color: var(--orange); }
+/* BACK TO TOP */
+.back-top{position:fixed;bottom:32px;right:32px;z-index:50;width:44px;height:44px;background:var(--orange);color:#fff;border:none;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;transition:background .2s}
+.back-top.visible{display:flex}
+.back-top:hover{background:#ff6a2a}
 
-    /* Results bar */
-    .rk-results-bar { display: flex; align-items: center; margin-bottom: 16px; }
-    .rk-results-count { font-size: 13px; color: var(--muted); font-family: sans-serif; }
-    .rk-results-count strong { color: #fff; }
-
-    /* Parts grid */
-    .rk-parts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .rk-part-card {
-      background: #141414; border: 1px solid var(--border);
-      padding: 20px; display: flex; flex-direction: column;
-      gap: 10px; position: relative; transition: border-color 0.2s;
-    }
-    .rk-part-card:hover { border-color: rgba(255,77,0,0.3); }
-    .rk-part-badge {
-      position: absolute; top: 12px; right: 12px;
-      font-size: 9px; font-weight: 900; letter-spacing: 2px; padding: 3px 8px;
-      text-transform: uppercase;
-    }
-    .rk-part-badge.hot { background: var(--orange); color: #fff; }
-    .rk-part-badge.top { background: #f5c518; color: #000; }
-    .rk-part-badge.new { background: #00c853; color: #fff; }
-    .rk-part-cat { font-size: 9px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
-    .rk-part-name {
-      font-size: 16px; font-weight: 700; letter-spacing: 0.5px;
-      line-height: 1.2; text-transform: uppercase; padding-right: 50px;
-    }
-    .rk-part-meta { display: flex; align-items: center; gap: 8px; }
-    .rk-part-brand { font-size: 11px; color: var(--muted); }
-    .rk-part-level { font-size: 9px; letter-spacing: 2px; padding: 3px 7px; text-transform: uppercase; }
-    .rk-part-level.beginner { background: rgba(0,200,83,0.15); color: #00c853; }
-    .rk-part-level.advanced { background: rgba(255,77,0,0.15); color: var(--orange); }
-    .rk-part-desc {
-      font-size: 12px; color: var(--muted); line-height: 1.5;
-      font-family: sans-serif; font-weight: 400; flex: 1;
-    }
-    .rk-part-bottom {
-      display: flex; align-items: flex-end; justify-content: space-between; margin-top: auto;
-    }
-    .rk-part-price { font-size: 20px; font-weight: 900; }
-    .rk-part-price-sub { font-size: 11px; color: var(--muted); font-family: sans-serif; }
-    .rk-part-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-    .rk-shop-link {
-      font-size: 10px; letter-spacing: 1px; color: var(--muted); text-decoration: none;
-      padding: 5px 8px; border: 1px solid var(--border); transition: all 0.2s;
-      font-family: var(--font); white-space: nowrap;
-    }
-    .rk-shop-link:hover { border-color: var(--orange); color: var(--orange); }
-    .rk-add-btn {
-      width: 32px; height: 32px; background: var(--orange); border: none; color: #fff;
-      font-size: 18px; cursor: pointer; display: flex; align-items: center;
-      justify-content: center; transition: background 0.2s; flex-shrink: 0;
-      font-family: var(--font);
-    }
-    .rk-add-btn:hover { background: #ff6a2a; }
-    .rk-add-btn.added { background: #00c853; }
-    .rk-no-results {
-      grid-column: 1/-1; text-align: center; padding: 60px 20px;
-      color: var(--muted); font-size: 14px; font-family: sans-serif;
-    }
-
-    /* ── BUILD PANEL ── */
-    .rk-build-panel {
-      position: fixed; top: 0; right: -460px; width: 440px; height: 100vh;
-      background: #141414; border-left: 1px solid var(--border);
-      z-index: 200; display: flex; flex-direction: column;
-      transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
-      box-shadow: -20px 0 60px rgba(0,0,0,0.5);
-    }
-    .rk-build-panel.open { right: 0; }
-    .rk-build-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 24px; border-bottom: 1px solid var(--border); flex-shrink: 0;
-    }
-    .rk-build-title { font-size: 14px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
-    .rk-build-close {
-      background: none; border: none; color: var(--muted);
-      font-size: 20px; cursor: pointer; padding: 4px; transition: color 0.2s;
-    }
-    .rk-build-close:hover { color: #fff; }
-    .rk-build-bike-label {
-      padding: 10px 24px; background: var(--orange-dim);
-      border-bottom: 1px solid rgba(255,77,0,0.2);
-      font-size: 11px; letter-spacing: 2px; color: var(--orange); text-transform: uppercase;
-      flex-shrink: 0;
-    }
-    .rk-build-items { flex: 1; overflow-y: auto; padding: 16px 24px; }
-    .rk-build-empty {
-      text-align: center; color: var(--muted); font-size: 14px;
-      font-family: sans-serif; padding: 40px 0; line-height: 1.6;
-    }
-    .rk-build-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 0; border-bottom: 1px solid var(--border); gap: 12px;
-    }
-    .rk-build-item-name {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.5px; margin-bottom: 3px;
-    }
-    .rk-build-item-cat { font-size: 9px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
-    .rk-build-item-price { font-size: 14px; font-weight: 900; white-space: nowrap; }
-    .rk-remove-btn {
-      background: none; border: 1px solid var(--border); color: var(--muted);
-      width: 26px; height: 26px; cursor: pointer; font-size: 12px; flex-shrink: 0;
-      transition: all 0.2s;
-    }
-    .rk-remove-btn:hover { border-color: #ff4444; color: #ff4444; }
-    .rk-build-footer { padding: 20px 24px; border-top: 1px solid var(--border); flex-shrink: 0; }
-    .rk-build-total-row {
-      display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;
-    }
-    .rk-build-total-label { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
-    .rk-build-total { font-size: 32px; font-weight: 900; color: var(--orange); }
-
-    /* Email save */
-    .rk-save-section { margin-bottom: 14px; }
-    .rk-save-label {
-      font-size: 10px; letter-spacing: 1px; color: var(--muted);
-      text-transform: uppercase; margin-bottom: 8px; display: block; line-height: 1.5;
-      font-family: sans-serif;
-    }
-    .rk-save-row { display: flex; gap: 8px; }
-    .rk-email-input {
-      flex: 1; background: #0d0d0d; border: 1px solid var(--border); color: #fff;
-      padding: 10px 14px; font-size: 13px; font-family: sans-serif; outline: none;
-      transition: border-color 0.2s;
-    }
-    .rk-email-input:focus { border-color: var(--orange); }
-    .rk-email-input::placeholder { color: var(--muted); }
-    .rk-save-btn {
-      background: #1c1c1c; border: 1px solid var(--border); color: #fff;
-      padding: 10px 16px; font-size: 11px; font-weight: 700; letter-spacing: 2px;
-      cursor: pointer; font-family: var(--font); text-transform: uppercase;
-      transition: all 0.2s; white-space: nowrap;
-    }
-    .rk-save-btn:hover { border-color: var(--orange); color: var(--orange); }
-
-    /* Share link */
-    .rk-share-link-row { display: flex; gap: 8px; margin-bottom: 14px; }
-    .rk-share-link-input {
-      flex: 1; background: #0d0d0d; border: 1px solid var(--border); color: var(--muted);
-      padding: 8px 12px; font-size: 11px; font-family: monospace; outline: none;
-    }
-    .rk-copy-btn {
-      background: none; border: 1px solid var(--border); color: var(--muted);
-      padding: 8px 12px; font-size: 10px; letter-spacing: 1px; cursor: pointer;
-      font-family: var(--font); text-transform: uppercase; transition: all 0.2s; white-space: nowrap;
-    }
-    .rk-copy-btn:hover { border-color: var(--orange); color: var(--orange); }
-    .rk-share-btn {
-      width: 100%; background: var(--orange); color: #fff; border: none;
-      padding: 14px; font-size: 13px; font-weight: 700; letter-spacing: 2px;
-      cursor: pointer; font-family: var(--font); text-transform: uppercase;
-      transition: background 0.2s;
-    }
-    .rk-share-btn:hover { background: #ff6a2a; }
-
-    /* ── FOOTER ── */
-    .rk-footer {
-      background: #141414; border-top: 1px solid var(--border);
-      padding: 40px 60px; display: flex; align-items: center; justify-content: space-between;
-    }
-    .rk-footer-logo { font-size: 18px; font-weight: 900; letter-spacing: 2px; }
-    .rk-footer-logo span { color: var(--orange); }
-    .rk-footer-text { font-size: 12px; color: var(--muted); font-family: sans-serif; margin-top: 6px; }
-    .rk-footer-links { display: flex; gap: 24px; }
-    .rk-footer-link {
-      font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
-      text-decoration: none; transition: color 0.2s;
-    }
-    .rk-footer-link:hover { color: var(--orange); }
-
-    /* Toast */
-    .rk-toast {
-      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px);
-      background: #00c853; color: #fff; padding: 14px 28px; font-size: 13px; font-weight: 700;
-      letter-spacing: 1px; z-index: 300; transition: transform 0.3s; white-space: nowrap;
-      font-family: var(--font); text-transform: uppercase;
-    }
-    .rk-toast.show { transform: translateX(-50%) translateY(0); }
-
-    /* Back to top */
-    .rk-back-top {
-      position: fixed; bottom: 32px; right: 32px; z-index: 50;
-      width: 44px; height: 44px; background: var(--orange); color: #fff; border: none;
-      font-size: 18px; cursor: pointer; display: none; align-items: center;
-      justify-content: center; transition: background 0.2s;
-    }
-    .rk-back-top.visible { display: flex; }
-    .rk-back-top:hover { background: #ff6a2a; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .rk-hero { grid-template-columns: 1fr; }
-      .rk-hero-right { display: none; }
-      .rk-bike-grid { grid-template-columns: repeat(3, 1fr); }
-      .rk-features { grid-template-columns: 1fr 1fr; }
-      .rk-how-steps { grid-template-columns: 1fr 1fr; }
-      .rk-how-step::after { display: none; }
-    }
-    @media (max-width: 768px) {
-      .rk-hero-left { padding: 80px 24px 40px; }
-      .rk-select-section, .rk-parts-section { padding: 0 24px 60px; }
-      .rk-about { padding: 60px 24px; }
-      .rk-how { padding: 40px 24px; }
-      .rk-bike-grid { grid-template-columns: 1fr 1fr; }
-      .rk-two-panel { grid-template-columns: 1fr; }
-      .rk-cat-sidebar { flex-direction: row; flex-wrap: wrap; }
-      .rk-parts-grid { grid-template-columns: 1fr 1fr; }
-      .rk-features { grid-template-columns: 1fr; }
-      .rk-footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
-    }
-    @media (max-width: 480px) {
-      .rk-parts-grid { grid-template-columns: 1fr; }
-      .rk-bike-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .bike-grid{grid-template-columns:repeat(3,1fr)}
+  .features{grid-template-columns:1fr 1fr}
+  .how-steps{grid-template-columns:1fr 1fr}
+  .how-step::after{display:none}
+}
+@media(max-width:768px){
+  .hero-left{padding:80px 24px 40px}
+  .select-section,.parts-section{padding:0 24px 60px}
+  .about{padding:60px 24px}
+  .how{padding:40px 24px}
+  .bike-grid{grid-template-columns:1fr 1fr}
+  .two-panel{grid-template-columns:1fr}
+  .cat-sidebar{flex-direction:row;flex-wrap:wrap}
+  .parts-grid{grid-template-columns:1fr 1fr}
+  .features{grid-template-columns:1fr}
+  .site-footer{flex-direction:column;gap:20px;text-align:center;padding:40px 24px}
+}
+@media(max-width:480px){
+  .parts-grid{grid-template-columns:1fr}
+  .bike-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="rk-nav">
-  <a class="rk-logo" href="#">RIP<span>KIT</span> <small>BETA</small></a>
-  <div class="rk-nav-right">
-    <span class="rk-nav-label">Electric Dirt Bike Parts</span>
-    <button class="rk-build-btn" onclick="toggleBuildPanel()">
-      MY BUILD <span class="rk-build-count" id="buildCount">0</span>
+<nav class="nav">
+  <a class="logo" href="#">RIP<span>KIT</span> <small>BETA</small></a>
+  <div class="nav-right">
+    <span class="nav-label">Electric Dirt Bike Parts</span>
+    <button class="build-btn" onclick="toggleBuild()">
+      MY BUILD <span class="build-count" id="buildCount">0</span>
     </button>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="rk-hero">
-  <div class="rk-hero-left">
-    <div class="rk-hero-eyebrow">The Ultimate Mod Platform</div>
-    <h1 class="rk-hero-h1">Build Your<span>Perfect Rig</span></h1>
-    <p class="rk-hero-sub">RipKit is the only platform built specifically for electric dirt bike riders. Browse 200+ hand-curated aftermarket parts for your exact bike, build your kit, save your list, and share it with anyone — all for free.</p>
-    <a href="#select-bike" class="rk-hero-cta" onclick="smoothTo('select-bike');return false;">Start Building →</a>
-    <div class="rk-hero-stats">
-      <div><span class="rk-stat-num">200+</span><span class="rk-stat-label">Parts Listed</span></div>
-      <div><span class="rk-stat-num">5</span><span class="rk-stat-label">Bike Platforms</span></div>
-      <div><span class="rk-stat-num">13</span><span class="rk-stat-label">Categories</span></div>
-      <div><span class="rk-stat-num">FREE</span><span class="rk-stat-label">Always</span></div>
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">The Ultimate Mod Platform</div>
+    <h1 class="hero-h1">Build Your<span>Perfect Rig</span></h1>
+    <p class="hero-sub">RipKit is the only platform built specifically for electric dirt bike riders. Browse 200+ hand-curated aftermarket parts for your exact bike, build your kit, save your list, and share it with anyone — all for free.</p>
+    <a href="#select-bike" class="hero-cta" onclick="smoothTo('select-bike');return false;">Start Building →</a>
+    <div class="hero-stats">
+      <div><span class="stat-num">200+</span><span class="stat-label">Parts Listed</span></div>
+      <div><span class="stat-num">5</span><span class="stat-label">Bike Platforms</span></div>
+      <div><span class="stat-num">13</span><span class="stat-label">Categories</span></div>
+      <div><span class="stat-num">FREE</span><span class="stat-label">Always</span></div>
     </div>
   </div>
-  <div class="rk-hero-right">
-    <div class="rk-bike-showcase-title">Supported Platforms</div>
-    <div class="rk-bike-showcase">
-      <div class="rk-showcase-card active" onclick="heroSelect('surron',this)">
-        <div class="rk-sc-left">
-          <div class="rk-sc-name" style="color:#FF4D00">Sur-Ron</div>
-          <div class="rk-sc-models">Light Bee X / Ultra Bee</div>
+  <div class="hero-right">
+    <div class="showcase-title">Supported Platforms</div>
+    <div class="showcase">
+      <div class="sc-card active" onclick="heroSelect('surron',this)">
+        <div class="sc-left">
+          <div class="sc-name" style="color:#FF4D00">Sur-Ron</div>
+          <div class="sc-models">Light Bee X / Ultra Bee</div>
         </div>
-        <div class="rk-sc-right">
-          <span class="rk-sc-tag">Most Popular</span>
-          <span class="rk-sc-arrow">→</span>
-        </div>
+        <div class="sc-right"><span class="sc-tag">Most Popular</span><span class="sc-arrow">→</span></div>
       </div>
-      <div class="rk-showcase-card" onclick="heroSelect('talaria',this)">
-        <div class="rk-sc-left">
-          <div class="rk-sc-name" style="color:#2979ff">Talaria</div>
-          <div class="rk-sc-models">Sting MX3 / MX4 / XXX</div>
+      <div class="sc-card" onclick="heroSelect('talaria',this)">
+        <div class="sc-left">
+          <div class="sc-name" style="color:#2979ff">Talaria</div>
+          <div class="sc-models">Sting MX3 / MX4 / XXX</div>
         </div>
-        <div class="rk-sc-right">
-          <span class="rk-sc-tag">Sur-Ron Killer</span>
-          <span class="rk-sc-arrow">→</span>
-        </div>
+        <div class="sc-right"><span class="sc-tag">Sur-Ron Killer</span><span class="sc-arrow">→</span></div>
       </div>
-      <div class="rk-showcase-card" onclick="heroSelect('segway',this)">
+      <div class="sc-card" onclick="heroSelect('segway',this)">
+        <div class="sc-left">
+          <div class="sc-name" style="color:#00c853">Segway</div>
+          <div class="sc-models">X160 / X260</div>
+        </div>
+        <div class="sc-right"><span class="sc-tag">Dual Sport</span><span class="sc-arrow">→</span></div>
+      </div>
+      <div class="sc-card" onclick="heroSelect('super73',this)">
+        <div class="sc-left">
+          <div class="sc-name" style="color:#ff9100">Super 73</div>
+          <div class="sc-models">S2 / R / RX / Z1 / ZX</div>
+        </div>
+        <div class="sc-right"><span class="sc-tag">Street Style</span><span class="sc-arrow">→</span></div>
+      </div>
+      <div class="sc-card" onclick="heroSelect('79moto',this)">
+        <div class="sc-left">
+          <div class="sc-name" style="color:#e6c040">79 Moto</div>
+          <div class="sc-models">Falcon / Falcon Pro</div>
+        </div>
+        <div class="sc-right"><span class="sc-tag">Electric MX</span><span class="sc-arrow">→</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div class="how">
+  <div class="how-inner">
+    <div class="how-title">How RipKit Works</div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-step-title">Pick Your Bike</div>
+        <div class="how-step-desc">Select your exact platform. Every part is filtered to fit your specific model — no guessing, no wasted money.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-step-title">Browse Parts</div>
+        <div class="how-step-desc">Filter by category and budget. 200+ curated upgrades from real brands — power, suspension, brakes and more.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-step-title">Build Your Kit</div>
+        <div class="how-step-desc">Add parts to your build list. See your running total. Save it with your email and come back anytime.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">04</div>
+        <div class="how-step-title">Share Your List</div>
+        <div class="how-step-desc">Get a shareable link. Send it to family for birthdays or Christmas — they can buy exactly what you want.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="about">
+  <div class="about-inner">
+    <div class="about-label">Why RipKit</div>
+    <h2 class="about-h2">The Parts Platform<br>Built for Riders</h2>
+    <p class="about-body">Finding the right aftermarket parts for an electric dirt bike is a nightmare. Every forum has conflicting info, Amazon searches return generic junk, and half the products don't even fit your bike. RipKit solves that. We hand-curate every part, verify compatibility, and link you directly to the best places to buy — so you spend less time researching and more time riding.</p>
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">🎯</span>
+        <div class="feature-title">Bike-Specific Parts</div>
+        <div class="feature-desc">Every part is filtered to your exact platform. Zero compatibility guessing. Zero wasted money.</div>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">💾</span>
+        <div class="feature-title">Save Your Build</div>
+        <div class="feature-desc">Drop your email and your build is saved. Come back and pick up right where you left off — any device, any time.</div>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🎁</span>
+        <div class="feature-title">Wishlist Links</div>
+        <div class="feature-desc">Share your build as a link. Perfect for Christmas lists or birthdays. Family buys exactly what you want.</div>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🔗</span>
+        <div class="feature-title">Direct to Amazon</div>
+        <div class="feature-desc">Every part links straight to Amazon or the brand's own site. No middleman. No markup. Always free.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BIKE SELECTOR -->
+<div id="select-bike" class="select-section">
+  <div class="section-label"><span>01</span>Select Your Bike</div>
+  <div class="bike-grid" id="bikeGrid">
+    <div class="bike-card active" data-bike="surron" onclick="selectBike('surron',this)">
+      <div class="bc-num">01</div>
+      <div class="bc-name" style="color:#FF4D00">Sur-Ron</div>
+      <div class="bc-models">Light Bee X / Ultra Bee</div>
+      <div class="bc-desc">The most popular electric dirt bike in the world. Massive aftermarket, huge community, unstoppable modding potential.</div>
+      <div class="bc-tag">Most Popular</div>
+      <span class="bc-count" id="cnt-surron"></span>
+    </div>
+    <div class="bike-card" data-bike="talaria" onclick="selectBike('talaria',this)">
+      <div class="bc-num">02</div>
+      <div class="bc-name" style="color:#2979ff">Talaria</div>
+      <div class="bc-models">Sting MX3 / MX4 / XXX</div>
+      <div class="bc-desc">The serious competitor to Sur-Ron. Better stock suspension, more raw power. Growing fast in the aftermarket scene.</div>
+      <div class="bc-tag">Sur-Ron Killer</div>
+      <span class="bc-count" id="cnt-talaria"></span>
+    </div>
+    <div class="bike-card" data-bike="segway" onclick="selectBike('segway',this)">
+      <div class="bc-num">03</div>
+      <div class="bc-name" style="color:#00c853">Segway</div>
+      <div class="bc-models">X160 / X260</div>
+      <div class="bc-desc">The dual-sport pick. Road legal in many states, solid trail capability. Great for riders who want to go both ways.</div>
+      <div class="bc-tag">Dual Sport</div>
+      <span class="bc-count" id="cnt-segway"></span>
+    </div>
+    <div class="bike-card" data-bike="super73" onclick="selectBike('super73',this)">
+      <div class="bc-num">04</div>
+      <div class="bc-name" style="color:#ff9100">Super 73</div>
+      <div class="bc-models">S2 / R / RX / Z1 / ZX</div>
+      <div class="bc-desc">The coolest looking electric bike on the planet. Built for street culture, loaded with style mods. Instagram's favorite bike.</div>
+      <div class="bc-tag">Street Style</div>
+      <span class="bc-count" id="cnt-super73"></span>
+    </div>
+    <div class="bike-card" data-bike="79moto" onclick="selectBike('79moto',this)">
+      <div class="bc-num">05</div>
+      <div class="bc-name" style="color:#e6c040">79 Moto</div>
+      <div class="bc-models">Falcon / Falcon Pro</div>
+      <div class="bc-desc">The new kid with serious credentials. Purpose-built for MX riding with a growing dedicated parts ecosystem.</div>
+      <div class="bc-tag">Electric MX</div>
+      <span class="bc-count" id="cnt-79moto"></span>
+    </div>
+  </div>
+</div>
+
+<!-- PARTS SECTION -->
+<div class="parts-section" id="partsSection">
+  <div class="parts-header">
+    <div class="parts-heading"><span>02</span>Browse Parts — <span id="bikeLabel" style="color:#
