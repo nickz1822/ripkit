@@ -98,10 +98,16 @@ body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
 .bike-card.active .bc-tag{border-color:var(--orange);color:var(--orange)}
 .bc-count{font-size:11px;color:var(--orange);margin-top:8px;display:block;font-weight:700}
 
+/* MODEL TABS */
+.model-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.model-tab{padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--border);background:#141414;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .2s}
+.model-tab:hover{border-color:rgba(255,77,0,.4);color:#fff}
+.model-tab.active{border-color:var(--orange);background:var(--odim);color:var(--orange)}
+
 /* PARTS SECTION */
 .parts-section{max-width:1280px;margin:0 auto;padding:0 60px 80px;display:none}
 .parts-section.visible{display:block}
-.parts-header{display:flex;align-items:center;justify-content:space-between;padding:36px 0 28px;border-top:1px solid var(--border);margin-top:24px}
+.parts-header{display:flex;align-items:center;justify-content:space-between;padding:36px 0 20px;border-top:1px solid var(--border);margin-top:24px}
 .parts-heading{font-size:11px;letter-spacing:4px;color:var(--muted);text-transform:uppercase}
 .parts-heading span{color:var(--orange);margin-right:12px}
 .budget-bar{display:flex;align-items:center;gap:16px;padding:14px 20px;background:#141414;border:1px solid var(--border);margin-bottom:24px}
@@ -260,14 +266,14 @@ body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
       <div class="sc-card active" onclick="heroSelect('surron',this)">
         <div class="sc-left">
           <div class="sc-name" style="color:#FF4D00">Sur-Ron</div>
-          <div class="sc-models">Light Bee X / Ultra Bee</div>
+          <div class="sc-models">Light Bee X / S / Ultra Bee / Storm Bee</div>
         </div>
         <div class="sc-right"><span class="sc-tag">Most Popular</span><span class="sc-arrow">→</span></div>
       </div>
       <div class="sc-card" onclick="heroSelect('talaria',this)">
         <div class="sc-left">
           <div class="sc-name" style="color:#2979ff">Talaria</div>
-          <div class="sc-models">Sting MX3 / MX4 / XXX</div>
+          <div class="sc-models">MX3 / MX4 (Sting R) / XXX</div>
         </div>
         <div class="sc-right"><span class="sc-tag">Sur-Ron Killer</span><span class="sc-arrow">→</span></div>
       </div>
@@ -281,7 +287,7 @@ body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
       <div class="sc-card" onclick="heroSelect('super73',this)">
         <div class="sc-left">
           <div class="sc-name" style="color:#ff9100">Super 73</div>
-          <div class="sc-models">S2 / R / RX / Z1 / ZX</div>
+          <div class="sc-models">R Series / S Series / Z Series</div>
         </div>
         <div class="sc-right"><span class="sc-tag">Street Style</span><span class="sc-arrow">→</span></div>
       </div>
@@ -332,26 +338,10 @@ body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
     <h2 class="about-h2">The Parts Platform<br>Built for Riders</h2>
     <p class="about-body">Finding the right aftermarket parts for an electric dirt bike is a nightmare. Every forum has conflicting info, Amazon searches return generic junk, and half the products don't even fit your bike. RipKit solves that. We hand-curate every part, verify compatibility, and link you directly to the best places to buy — so you spend less time researching and more time riding.</p>
     <div class="features">
-      <div class="feature">
-        <span class="feature-icon">🎯</span>
-        <div class="feature-title">Bike-Specific Parts</div>
-        <div class="feature-desc">Every part is filtered to your exact platform. Zero compatibility guessing. Zero wasted money.</div>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">💾</span>
-        <div class="feature-title">Save Your Build</div>
-        <div class="feature-desc">Drop your email and your build is saved. Come back and pick up right where you left off — any device, any time.</div>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">🎁</span>
-        <div class="feature-title">Wishlist Links</div>
-        <div class="feature-desc">Share your build as a link. Perfect for Christmas lists or birthdays. Family buys exactly what you want.</div>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">🔗</span>
-        <div class="feature-title">Direct to Amazon</div>
-        <div class="feature-desc">Every part links straight to Amazon or the brand's own site. No middleman. No markup. Always free.</div>
-      </div>
+      <div class="feature"><span class="feature-icon">🎯</span><div class="feature-title">Bike-Specific Parts</div><div class="feature-desc">Every part is filtered to your exact platform. Zero compatibility guessing. Zero wasted money.</div></div>
+      <div class="feature"><span class="feature-icon">💾</span><div class="feature-title">Save Your Build</div><div class="feature-desc">Drop your email and your build is saved. Come back and pick up right where you left off — any device, any time.</div></div>
+      <div class="feature"><span class="feature-icon">🎁</span><div class="feature-title">Wishlist Links</div><div class="feature-desc">Share your build as a link. Perfect for Christmas lists or birthdays. Family buys exactly what you want.</div></div>
+      <div class="feature"><span class="feature-icon">🔗</span><div class="feature-title">Direct to Amazon</div><div class="feature-desc">Every part links straight to Amazon or the brand's own site. No middleman. No markup. Always free.</div></div>
     </div>
   </div>
 </div>
@@ -363,7 +353,7 @@ body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
     <div class="bike-card active" data-bike="surron" onclick="selectBike('surron',this)">
       <div class="bc-num">01</div>
       <div class="bc-name" style="color:#FF4D00">Sur-Ron</div>
-      <div class="bc-models">Light Bee X / Ultra Bee</div>
+      <div class="bc-models">Light Bee X / S / Ultra Bee / Storm Bee</div>
       <div class="bc-desc">The most popular electric dirt bike in the world. Massive aftermarket, huge community, unstoppable modding potential.</div>
       <div class="bc-tag">Most Popular</div>
       <span class="bc-count" id="cnt-surron"></span>
@@ -371,8 +361,8 @@ body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
     <div class="bike-card" data-bike="talaria" onclick="selectBike('talaria',this)">
       <div class="bc-num">02</div>
       <div class="bc-name" style="color:#2979ff">Talaria</div>
-      <div class="bc-models">Sting MX3 / MX4 / XXX</div>
-      <div class="bc-desc">The serious competitor to Sur-Ron. Better stock suspension, more raw power. Growing fast in the aftermarket scene.</div>
+      <div class="bc-models">MX3 / MX4 (Sting R) / XXX</div>
+      <div class="bc-desc">The serious competitor to Sur-Ron. Integrated gearbox, growing fast in the aftermarket scene. Two distinct platforms.</div>
       <div class="bc-tag">Sur-Ron Killer</div>
       <span class="bc-count" id="cnt-talaria"></span>
     </div>
@@ -387,7 +377,7 @@ body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
     <div class="bike-card" data-bike="super73" onclick="selectBike('super73',this)">
       <div class="bc-num">04</div>
       <div class="bc-name" style="color:#ff9100">Super 73</div>
-      <div class="bc-models">S2 / R / RX / Z1 / ZX</div>
+      <div class="bc-models">R Series / S Series / Z Series</div>
       <div class="bc-desc">The coolest looking electric bike on the planet. Built for street culture, loaded with style mods. Instagram's favorite bike.</div>
       <div class="bc-tag">Street Style</div>
       <span class="bc-count" id="cnt-super73"></span>
@@ -406,4 +396,574 @@ body{background:#0d0d0d;color:#fff;font-family:var(--font);overflow-x:hidden}
 <!-- PARTS SECTION -->
 <div class="parts-section" id="partsSection">
   <div class="parts-header">
-    <div class="parts-heading"><span>02</span>Browse Parts — <span id="bikeLabel" style="color:#
+    <div class="parts-heading"><span>02</span>Browse Parts — <span id="bikeLabel" style="color:#FF4D00"></span></div>
+  </div>
+  <!-- Model tabs -->
+  <div class="model-tabs" id="modelTabs"></div>
+  <!-- Budget bar -->
+  <div class="budget-bar">
+    <span class="budget-label">Max Budget</span>
+    <span class="budget-val" id="budgetVal">$500</span>
+    <input type="range" class="budget-slider" id="budgetSlider" min="20" max="2000" value="2000" oninput="onBudget(this.value)">
+    <button class="budget-reset" onclick="resetBudget()">Reset</button>
+  </div>
+  <div class="two-panel">
+    <div class="cat-sidebar" id="catSidebar"></div>
+    <div>
+      <div class="results-bar"><div class="results-count" id="resultsCount"></div></div>
+      <div class="parts-grid" id="partsGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- BUILD PANEL -->
+<div class="build-panel" id="buildPanel">
+  <div class="build-header">
+    <div class="build-title">My Build</div>
+    <button class="build-close" onclick="toggleBuild()">✕</button>
+  </div>
+  <div class="build-bike-label" id="buildBikeLabel">No bike selected</div>
+  <div class="build-items" id="buildItems">
+    <div class="build-empty">No parts added yet.<br>Select a bike and start adding parts to your build.</div>
+  </div>
+  <div class="build-footer">
+    <div class="build-total-row">
+      <span class="build-total-label">Estimated Total</span>
+      <span class="build-total" id="buildTotal">$0</span>
+    </div>
+    <div class="save-section">
+      <span class="save-label">Save your build — enter email to get a link back to this list:</span>
+      <div class="save-row">
+        <input class="email-input" type="email" placeholder="your@email.com" id="emailInput">
+        <button class="save-btn" onclick="saveBuild()">Save</button>
+      </div>
+    </div>
+    <div class="share-link-row">
+      <input class="share-link-input" type="text" id="shareLinkInput" placeholder="Generate a link to share..." readonly>
+      <button class="copy-btn" onclick="copyLink()">Copy</button>
+    </div>
+    <button class="share-btn" onclick="generateLink()">Generate Shareable Link</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div>
+    <div class="footer-logo">RIP<span>KIT</span></div>
+    <div class="footer-text">The electric dirt bike parts platform. Free always.</div>
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="#">About</a>
+    <a class="footer-link" href="#">Submit a Part</a>
+    <a class="footer-link" href="#">Community</a>
+    <a class="footer-link" href="#">Contact</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ─── PARTS DATABASE ───────────────────────────────────────────────────────────
+
+const BIKES = {
+  surron: {
+    label: 'Sur-Ron',
+    color: '#FF4D00',
+    models: ['Light Bee X / S', 'Ultra Bee', 'Storm Bee'],
+  },
+  talaria: {
+    label: 'Talaria',
+    color: '#2979ff',
+    models: ['MX3 / MX4 (Sting R)', 'XXX (X3)'],
+  },
+  segway: {
+    label: 'Segway',
+    color: '#00c853',
+    models: ['X160', 'X260'],
+  },
+  super73: {
+    label: 'Super 73',
+    color: '#ff9100',
+    models: ['R Series', 'S Series', 'Z Series'],
+  },
+  '79moto': {
+    label: '79 Moto',
+    color: '#e6c040',
+    models: ['Falcon', 'Falcon Pro'],
+  },
+};
+
+// Parts keyed by bike. Each part: { id, cat, name, brand, level, desc, price, badge, link }
+const PARTS = {
+
+  // ─── SUR-RON ───────────────────────────────────────────────────────────────
+  surron: [
+    // Light Bee X / S
+    { id:'sr1',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'420 Chain Upgrade Kit', brand:'Generic', level:'beginner', desc:'Standard pitch chain upgrade for Light Bee. Stronger than stock, easy swap.', price:28, badge:'', link:'#' },
+    { id:'sr2',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'428 Chain Conversion Kit', brand:'Generic', level:'beginner', desc:'Step up to 428 pitch for more torque transfer. Popular first mod.', price:35, badge:'', link:'#' },
+    { id:'sr3',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'520 Chain Heavy Duty Kit', brand:'RK Chains', level:'advanced', desc:'Full 520 conversion for high-power builds. Requires sprocket changes.', price:65, badge:'hot', link:'#' },
+    { id:'sr4',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'Rear Sprocket – 38T Aluminum', brand:'Talon', level:'beginner', desc:'Lightweight anodized aluminum rear sprocket. Drop-in replacement.', price:45, badge:'', link:'#' },
+    { id:'sr5',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'Front Sprocket – 14T Steel', brand:'Generic', level:'beginner', desc:'Steel front sprocket. More top speed, less torque.', price:18, badge:'', link:'#' },
+    { id:'sr6',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'BAC4000 Controller', brand:'Adaptto/BAC', level:'advanced', desc:'High-performance programmable controller. Unlock serious power gains.', price:380, badge:'hot', link:'#' },
+    { id:'sr7',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'KO Motor Controller', brand:'KO Proline', level:'advanced', desc:'Plug-and-play performance controller tuned for Light Bee platform.', price:290, badge:'', link:'#' },
+    { id:'sr8',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'EBMX Controller Tune', brand:'EBMX', level:'advanced', desc:'Custom flash tune for stock controller. Noticeable power gain, no hardware swap.', price:150, badge:'', link:'#' },
+    { id:'sr9',  model:'Light Bee X / S', cat:'Power / Drivetrain', name:'Sotion Motor Upgrade', brand:'Sotion', level:'advanced', desc:'Drop-in motor replacement with significantly higher peak power.', price:420, badge:'top', link:'#' },
+    { id:'sr10', model:'Light Bee X / S', cat:'Power / Drivetrain', name:'60V → 72V Battery Upgrade', brand:'3rd Party', level:'advanced', desc:'Increase system voltage to 72V for more speed and power. Verify controller compatibility.', price:650, badge:'hot', link:'#' },
+    { id:'sr11', model:'Light Bee X / S', cat:'Wheels', name:'17" Supermoto Wheel Set', brand:'Generic', level:'advanced', desc:'17" front and rear supermoto wheels. Full street tire compatibility.', price:280, badge:'', link:'#' },
+    { id:'sr12', model:'Light Bee X / S', cat:'Wheels', name:'19" Dirt Wheel Upgrade', brand:'Excel Rims', level:'advanced', desc:'Larger 19" rear wheel for more trail confidence.', price:310, badge:'', link:'#' },
+    { id:'sr13', model:'Light Bee X / S', cat:'Wheels', name:'16" Flat Track Wheel Kit', brand:'Generic', level:'beginner', desc:'16" wheel conversion for flat track and indoor riding.', price:220, badge:'', link:'#' },
+    { id:'sr14', model:'Light Bee X / S', cat:'Brakes', name:'Magura MT5 Brake Set', brand:'Magura', level:'beginner', desc:'Premium MTB hydraulic brakes. Direct mount, huge stopping power upgrade.', price:180, badge:'top', link:'#' },
+    { id:'sr15', model:'Light Bee X / S', cat:'Brakes', name:'Hayes Dominion A4 Brakes', brand:'Hayes', level:'beginner', desc:'4-piston MTB hydraulic brakes. Excellent modulation and power.', price:160, badge:'', link:'#' },
+    { id:'sr16', model:'Light Bee X / S', cat:'Brakes', name:'203mm Rotor Upgrade (Front)', brand:'Galfer', level:'beginner', desc:'Upsize to 203mm rotor for better heat dissipation and braking power.', price:45, badge:'', link:'#' },
+    { id:'sr17', model:'Light Bee X / S', cat:'Brakes', name:'250mm Rotor Kit + Adapter', brand:'Galfer', level:'advanced', desc:'Max rotor size upgrade. Requires caliper adapter. Monster stopping power.', price:95, badge:'hot', link:'#' },
+    { id:'sr18', model:'Light Bee X / S', cat:'Suspension', name:'Fastace Fork Upgrade', brand:'Fastace', level:'advanced', desc:'Direct replacement fork with better damping and travel than stock.', price:320, badge:'', link:'#' },
+    { id:'sr19', model:'Light Bee X / S', cat:'Suspension', name:'Fox 40 Fork Conversion', brand:'Fox', level:'advanced', desc:'Premium downhill fork swap. Requires triple clamp adapter kit.', price:890, badge:'top', link:'#' },
+    { id:'sr20', model:'Light Bee X / S', cat:'Suspension', name:'RockShox Boxxer Fork', brand:'RockShox', level:'advanced', desc:'High-end DH fork compatible with Light Bee with adapter kit.', price:750, badge:'', link:'#' },
+    { id:'sr21', model:'Light Bee X / S', cat:'Suspension', name:'DNM Rear Shock Upgrade', brand:'DNM', level:'beginner', desc:'Adjustable rear shock with better valving than OEM. Easy bolt-on.', price:140, badge:'', link:'#' },
+    { id:'sr22', model:'Light Bee X / S', cat:'Suspension', name:'EXT Storia Rear Shock', brand:'EXT', level:'advanced', desc:'Premium Italian rear shock. Full adjustment, rebuildable, long service life.', price:420, badge:'top', link:'#' },
+    { id:'sr23', model:'Light Bee X / S', cat:'Controls', name:'Renthal Fatbar 31.8mm', brand:'Renthal', level:'beginner', desc:'31.8mm fatbar handlebars. Direct fit, wide range of rises available.', price:75, badge:'', link:'#' },
+    { id:'sr24', model:'Light Bee X / S', cat:'Controls', name:'ODI Lock-On Grips', brand:'ODI', level:'beginner', desc:'Lock-on grips, no glue needed. Much better than stock rubber.', price:28, badge:'', link:'#' },
+    { id:'sr25', model:'Light Bee X / S', cat:'Controls', name:'Half Twist Throttle Upgrade', brand:'Generic', level:'beginner', desc:'Smooth half-twist throttle replacement. Reduces hand fatigue.', price:22, badge:'', link:'#' },
+    { id:'sr26', model:'Light Bee X / S', cat:'Controls', name:'Color Display Dash', brand:'Generic', level:'beginner', desc:'Full color LCD dashboard replacement. Shows speed, battery, mode.', price:55, badge:'new', link:'#' },
+    { id:'sr27', model:'Light Bee X / S', cat:'Frame / Body', name:'Polisport Plastic Kit', brand:'Polisport', level:'beginner', desc:'Complete plastics set. Multiple colors available. Better fit than OEM.', price:120, badge:'', link:'#' },
+    { id:'sr28', model:'Light Bee X / S', cat:'Frame / Body', name:'Seat Concepts Seat', brand:'Seat Concepts', level:'beginner', desc:'Wider, softer seat foam and gripper cover. Major comfort upgrade.', price:95, badge:'', link:'#' },
+    { id:'sr29', model:'Light Bee X / S', cat:'Frame / Body', name:'Subframe Replacement Kit', brand:'Generic', level:'advanced', desc:'Aftermarket subframe with better geometry and crash protection.', price:180, badge:'', link:'#' },
+    { id:'sr30', model:'Light Bee X / S', cat:'Extras', name:'IMS Foot Pegs', brand:'IMS', level:'beginner', desc:'Wide platform foot pegs with aggressive grip. Much better than stock.', price:65, badge:'', link:'#' },
+    { id:'sr31', model:'Light Bee X / S', cat:'Extras', name:'Skid Plate / Bash Guard', brand:'Generic', level:'beginner', desc:'Aluminum belly skid plate. Protects the battery and frame bottom.', price:48, badge:'', link:'#' },
+    { id:'sr32', model:'Light Bee X / S', cat:'Extras', name:'Chain Guide + Bash Guard', brand:'Moto-Master', level:'beginner', desc:'Keeps your chain on in rough terrain. Bolts to swingarm.', price:38, badge:'', link:'#' },
+    { id:'sr33', model:'Light Bee X / S', cat:'Extras', name:'Full Hardware Kit', brand:'Generic', level:'beginner', desc:'Complete stainless steel bolt kit. Replace all the cheap OEM fasteners.', price:42, badge:'', link:'#' },
+
+    // Ultra Bee
+    { id:'sr34', model:'Ultra Bee', cat:'Power / Drivetrain', name:'Controller Tune (Ultra Bee)', brand:'EBMX', level:'advanced', desc:'Performance tune for Ultra Bee controller. Unlocks hidden power modes.', price:180, badge:'hot', link:'#' },
+    { id:'sr35', model:'Ultra Bee', cat:'Power / Drivetrain', name:'Battery Upgrade (Ultra Bee)', brand:'3rd Party', level:'advanced', desc:'Higher capacity battery upgrade for extended range and more power.', price:750, badge:'', link:'#' },
+    { id:'sr36', model:'Ultra Bee', cat:'Wheels', name:'21" Front / 18" Rear Wheel Set', brand:'Excel', level:'advanced', desc:'Full motocross wheel sizing. MX tire compatibility unlocked.', price:380, badge:'', link:'#' },
+    { id:'sr37', model:'Ultra Bee', cat:'Brakes', name:'Motorcycle Brake Upgrade Kit', brand:'Galfer', level:'beginner', desc:'Motorcycle-grade rotors and pads for Ultra Bee platform.', price:140, badge:'', link:'#' },
+    { id:'sr38', model:'Ultra Bee', cat:'Suspension', name:'Fork Upgrade Kit (Ultra Bee)', brand:'Fastace', level:'advanced', desc:'Suspension upgrade package compatible with Ultra Bee geometry.', price:480, badge:'', link:'#' },
+    { id:'sr39', model:'Ultra Bee', cat:'Controls', name:'28.6mm Fat Bar Set', brand:'Renthal', level:'beginner', desc:'Motorcycle standard 28.6mm bars. Wide range of bends available.', price:80, badge:'', link:'#' },
+    { id:'sr40', model:'Ultra Bee', cat:'Controls', name:'ECU Tune (Ultra Bee)', brand:'KO Proline', level:'advanced', desc:'ECU remapping for Ultra Bee. Power and regen adjustment.', price:220, badge:'', link:'#' },
+
+    // Storm Bee
+    { id:'sr41', model:'Storm Bee', cat:'Wheels', name:'MX Wheel Set (Storm Bee)', brand:'Excel', level:'advanced', desc:'Motocross-standard wheels for Storm Bee platform.', price:420, badge:'', link:'#' },
+    { id:'sr42', model:'Storm Bee', cat:'Brakes', name:'MX Brake Upgrade (Storm Bee)', brand:'Galfer', level:'beginner', desc:'Motocross-grade brake rotors and pads. OEM-spec replacements and upgrades.', price:160, badge:'', link:'#' },
+    { id:'sr43', model:'Storm Bee', cat:'Suspension', name:'MX Suspension Tune Kit', brand:'KYB', level:'advanced', desc:'Re-valve and spring rate kit for Storm Bee forks and shock.', price:350, badge:'', link:'#' },
+    { id:'sr44', model:'Storm Bee', cat:'Extras', name:'MX Foot Pegs (Storm Bee)', brand:'IMS', level:'beginner', desc:'Wide-platform MX foot pegs. Direct bolt-on for Storm Bee.', price:70, badge:'', link:'#' },
+  ],
+
+  // ─── TALARIA ──────────────────────────────────────────────────────────────
+  talaria: [
+    // MX3 / MX4
+    { id:'tl1',  model:'MX3 / MX4 (Sting R)', cat:'Power / Drivetrain', name:'Talaria Chain Upgrade Kit', brand:'RK Chains', level:'beginner', desc:'Quality chain upgrade for MX3/MX4. Better than OEM, easy install.', price:32, badge:'', link:'#' },
+    { id:'tl2',  model:'MX3 / MX4 (Sting R)', cat:'Power / Drivetrain', name:'Rear Sprocket – 40T Aluminum', brand:'Talon', level:'beginner', desc:'Lightweight aluminum sprocket. Talaria-specific bolt pattern.', price:50, badge:'', link:'#' },
+    { id:'tl3',  model:'MX3 / MX4 (Sting R)', cat:'Power / Drivetrain', name:'Gearbox Upgrade Kit', brand:'Talaria-specific', level:'advanced', desc:'Performance gearbox internals for MX3/MX4. Talaria-specific design — not Sur-Ron compatible.', price:280, badge:'hot', link:'#' },
+    { id:'tl4',  model:'MX3 / MX4 (Sting R)', cat:'Power / Drivetrain', name:'EBMX Controller (Talaria)', brand:'EBMX', level:'advanced', desc:'EBMX controller tuned specifically for Talaria platform. Plug and play.', price:320, badge:'top', link:'#' },
+    { id:'tl5',  model:'MX3 / MX4 (Sting R)', cat:'Power / Drivetrain', name:'KO Controller (Talaria)', brand:'KO Proline', level:'advanced', desc:'KO Proline controller with Talaria-specific firmware. Major power upgrade.', price:295, badge:'', link:'#' },
+    { id:'tl6',  model:'MX3 / MX4 (Sting R)', cat:'Power / Drivetrain', name:'Battery Upgrade 60V→72V', brand:'3rd Party', level:'advanced', desc:'High-voltage battery upgrade. Verify gearbox and controller compatibility.', price:680, badge:'hot', link:'#' },
+    { id:'tl7',  model:'MX3 / MX4 (Sting R)', cat:'Wheels', name:'Supermoto Wheel Kit (Talaria)', brand:'Generic', level:'advanced', desc:'Sur-Ron compatible wheels with spacer adjustments for Talaria.', price:295, badge:'', link:'#' },
+    { id:'tl8',  model:'MX3 / MX4 (Sting R)', cat:'Wheels', name:'MX Wheel Upgrade Set', brand:'Excel', level:'advanced', desc:'Larger diameter MX wheels. Includes spacers for Talaria fitment.', price:340, badge:'', link:'#' },
+    { id:'tl9',  model:'MX3 / MX4 (Sting R)', cat:'Brakes', name:'Magura MT5 Brake Set (Talaria)', brand:'Magura', level:'beginner', desc:'Same MTB hydraulic system as Sur-Ron fit. Direct mount on MX3/MX4.', price:180, badge:'top', link:'#' },
+    { id:'tl10', model:'MX3 / MX4 (Sting R)', cat:'Brakes', name:'Rotor Upgrade 203mm (Talaria)', brand:'Galfer', level:'beginner', desc:'Upgraded front rotor for more stopping power on Talaria.', price:48, badge:'', link:'#' },
+    { id:'tl11', model:'MX3 / MX4 (Sting R)', cat:'Suspension', name:'Fastace Fork Swap (Talaria)', brand:'Fastace', level:'advanced', desc:'Compatible fork upgrade. Better damping, more travel than stock.', price:330, badge:'', link:'#' },
+    { id:'tl12', model:'MX3 / MX4 (Sting R)', cat:'Suspension', name:'RockShox Boxxer (Talaria)', brand:'RockShox', level:'advanced', desc:'DH fork swap for Talaria. Requires triple clamp adapter.', price:760, badge:'', link:'#' },
+    { id:'tl13', model:'MX3 / MX4 (Sting R)', cat:'Suspension', name:'DNM Rear Shock (Talaria)', brand:'DNM', level:'beginner', desc:'Adjustable rear shock upgrade for MX3/MX4. Bolt-on install.', price:145, badge:'', link:'#' },
+    { id:'tl14', model:'MX3 / MX4 (Sting R)', cat:'Controls', name:'31.8mm Handlebar (Talaria)', brand:'Renthal', level:'beginner', desc:'Same 31.8mm bar standard as Sur-Ron. Wide range of options.', price:75, badge:'', link:'#' },
+    { id:'tl15', model:'MX3 / MX4 (Sting R)', cat:'Controls', name:'Throttle Assembly Upgrade', brand:'Generic', level:'beginner', desc:'Smoother throttle with better return spring. Drop-in upgrade.', price:30, badge:'', link:'#' },
+    { id:'tl16', model:'MX3 / MX4 (Sting R)', cat:'Controls', name:'Switchgear Upgrade Kit', brand:'Generic', level:'beginner', desc:'Better kill switch and mode button assembly. Weatherproof connectors.', price:45, badge:'', link:'#' },
+    { id:'tl17', model:'MX3 / MX4 (Sting R)', cat:'Frame / Body', name:'Talaria Plastics Kit', brand:'Polisport', level:'beginner', desc:'Complete Talaria-specific plastics set. Talaria plastics are NOT interchangeable with Sur-Ron.', price:130, badge:'', link:'#' },
+    { id:'tl18', model:'MX3 / MX4 (Sting R)', cat:'Frame / Body', name:'Seat Cover Gripper', brand:'Seat Concepts', level:'beginner', desc:'Non-slip seat cover upgrade. Keeps you planted in rough terrain.', price:55, badge:'', link:'#' },
+
+    // XXX / X3
+    { id:'tl19', model:'XXX (X3)', cat:'Power / Drivetrain', name:'Controller Upgrade (XXX)', brand:'EBMX', level:'advanced', desc:'Performance controller for the XXX platform. Street-focused power delivery.', price:290, badge:'', link:'#' },
+    { id:'tl20', model:'XXX (X3)', cat:'Power / Drivetrain', name:'Battery Upgrade (XXX)', brand:'3rd Party', level:'advanced', desc:'Higher capacity pack for more range on the street-oriented XXX.', price:600, badge:'', link:'#' },
+    { id:'tl21', model:'XXX (X3)', cat:'Wheels', name:'Small Diameter Supermoto Kit', brand:'Generic', level:'advanced', desc:'Smaller diameter wheels for XXX — street setup. Different sizing from MX4.', price:260, badge:'', link:'#' },
+    { id:'tl22', model:'XXX (X3)', cat:'Brakes', name:'MTB Hydraulic Brake Set (XXX)', brand:'Hayes', level:'beginner', desc:'Hayes hydraulic brake upgrade for XXX. Massive improvement over stock.', price:150, badge:'', link:'#' },
+    { id:'tl23', model:'XXX (X3)', cat:'Suspension', name:'Fork Upgrade (XXX)', brand:'Fastace', level:'advanced', desc:'Compatible fork upgrade for XXX. Note: more limited options than MX4.', price:300, badge:'', link:'#' },
+    { id:'tl24', model:'XXX (X3)', cat:'Controls', name:'Cockpit Kit (XXX)', brand:'Generic', level:'beginner', desc:'Bars, grips and throttle — shared fitment with MX4 and Sur-Ron.', price:90, badge:'', link:'#' },
+    { id:'tl25', model:'XXX (X3)', cat:'Frame / Body', name:'XXX Plastics Kit', brand:'Talaria', level:'beginner', desc:'XXX-specific body panels. NOT compatible with MX3 or MX4. Unique design.', price:115, badge:'new', link:'#' },
+  ],
+
+  // ─── SEGWAY ───────────────────────────────────────────────────────────────
+  segway: [
+    { id:'sg1',  model:'X160', cat:'Power / Drivetrain', name:'X160 Battery Upgrade', brand:'3rd Party', level:'advanced', desc:'Higher capacity battery for the X160. More range for trail rides.', price:480, badge:'', link:'#' },
+    { id:'sg2',  model:'X160', cat:'Wheels', name:'X160 Supermoto Wheel Kit', brand:'Generic', level:'advanced', desc:'Street tire conversion for X160. Road-legal street setup.', price:240, badge:'', link:'#' },
+    { id:'sg3',  model:'X160', cat:'Brakes', name:'X160 Brake Upgrade', brand:'Galfer', level:'beginner', desc:'Rotor and pad upgrade for X160. Improved stopping power.', price:90, badge:'', link:'#' },
+    { id:'sg4',  model:'X160', cat:'Controls', name:'X160 Handlebar Upgrade', brand:'Renthal', level:'beginner', desc:'Renthal bars for X160. 28.6mm standard fitment.', price:75, badge:'', link:'#' },
+    { id:'sg5',  model:'X160', cat:'Extras', name:'X160 Skid Plate', brand:'Generic', level:'beginner', desc:'Aluminum bash plate for X160 underbelly protection.', price:55, badge:'', link:'#' },
+    { id:'sg6',  model:'X260', cat:'Power / Drivetrain', name:'X260 Battery Upgrade', brand:'3rd Party', level:'advanced', desc:'Extended range battery pack for the X260 platform.', price:650, badge:'hot', link:'#' },
+    { id:'sg7',  model:'X260', cat:'Power / Drivetrain', name:'X260 Controller Tune', brand:'EBMX', level:'advanced', desc:'Power tune for X260. Removes speed limiter and unlocks full output.', price:160, badge:'', link:'#' },
+    { id:'sg8',  model:'X260', cat:'Wheels', name:'X260 Supermoto Kit', brand:'Generic', level:'advanced', desc:'Full supermoto conversion for X260. Street-legal tire fitment.', price:290, badge:'', link:'#' },
+    { id:'sg9',  model:'X260', cat:'Brakes', name:'X260 Rotor Upgrade Kit', brand:'Galfer', level:'beginner', desc:'203mm rotor upgrade for front and rear on X260.', price:110, badge:'', link:'#' },
+    { id:'sg10', model:'X260', cat:'Suspension', name:'X260 Rear Shock Upgrade', brand:'DNM', level:'beginner', desc:'Adjustable rear shock for X260. Significantly better than OEM.', price:155, badge:'', link:'#' },
+    { id:'sg11', model:'X260', cat:'Controls', name:'X260 Handlebar Set', brand:'Renthal', level:'beginner', desc:'Renthal handlebar for X260. Motorcycle standard sizing.', price:80, badge:'', link:'#' },
+    { id:'sg12', model:'X260', cat:'Extras', name:'X260 Skid Plate', brand:'Generic', level:'beginner', desc:'Heavy-duty aluminum skid plate. Full belly protection for trail use.', price:65, badge:'', link:'#' },
+    { id:'sg13', model:'X260', cat:'Extras', name:'X260 License Plate Kit', brand:'Generic', level:'beginner', desc:'Street legal plate holder and lighting kit for road registration.', price:45, badge:'new', link:'#' },
+  ],
+
+  // ─── SUPER 73 ─────────────────────────────────────────────────────────────
+  super73: [
+    // R Series
+    { id:'s1',  model:'R Series', cat:'Power / Drivetrain', name:'R Series Battery Upgrade', brand:'3rd Party', level:'advanced', desc:'Higher capacity battery for R, RX, and Adventure models. More range, more power.', price:780, badge:'hot', link:'#' },
+    { id:'s2',  model:'R Series', cat:'Power / Drivetrain', name:'R Series Controller Tune', brand:'Generic', level:'advanced', desc:'Limited controller tuning options for R series. Unlocks speed cap.', price:120, badge:'', link:'#' },
+    { id:'s3',  model:'R Series', cat:'Wheels', name:'20" Fat Tire Set (4" wide)', brand:'Vee Tire', level:'beginner', desc:'20x4" fat tire upgrade for R series hub motor wheel. Improved traction.', price:140, badge:'', link:'#' },
+    { id:'s4',  model:'R Series', cat:'Wheels', name:'20" Fat Tire Set (5" wide)', brand:'Vee Tire', level:'beginner', desc:'Maximum width 20x5" fat tires for R series. Best for sand and snow.', price:160, badge:'', link:'#' },
+    { id:'s5',  model:'R Series', cat:'Wheels', name:'Hub Motor Wheel Replacement', brand:'Super73 OEM', level:'advanced', desc:'Complete hub motor wheel assembly replacement for R series.', price:450, badge:'', link:'#' },
+    { id:'s6',  model:'R Series', cat:'Brakes', name:'Hydraulic Brake Upgrade (R)', brand:'Tektro', level:'beginner', desc:'Hydraulic brake upgrade kit for R series. Better feel than stock.', price:140, badge:'', link:'#' },
+    { id:'s7',  model:'R Series', cat:'Brakes', name:'Rotor Upgrade Kit (R)', brand:'Galfer', level:'beginner', desc:'Larger rotor upgrade for R series front and rear.', price:90, badge:'', link:'#' },
+    { id:'s8',  model:'R Series', cat:'Suspension', name:'Rear Shock Upgrade (R)', brand:'DNM', level:'beginner', desc:'Adjustable rear shock for R series. Noticeably better than stock.', price:160, badge:'', link:'#' },
+    { id:'s9',  model:'R Series', cat:'Suspension', name:'Fork Upgrade (R Series)', brand:'SR Suntour', level:'advanced', desc:'Upgraded fork for R series. Limited options compared to dirt platforms.', price:280, badge:'', link:'#' },
+    { id:'s10', model:'R Series', cat:'Controls', name:'Handlebar Upgrade (R Series)', brand:'Renthal', level:'beginner', desc:'Wider bars for better control. Multiple rise options available.', price:70, badge:'', link:'#' },
+    { id:'s11', model:'R Series', cat:'Controls', name:'Phone / GPS Mount', brand:'RAM Mounts', level:'beginner', desc:'Heavy-duty vibration-dampening phone mount. Works with any case.', price:45, badge:'', link:'#' },
+    { id:'s12', model:'R Series', cat:'Utility / Body', name:'Rear Cargo Rack', brand:'Super73', level:'beginner', desc:'Official cargo rack for R series. Holds 50 lbs. Great for commuting.', price:85, badge:'', link:'#' },
+    { id:'s13', model:'R Series', cat:'Utility / Body', name:'Passenger Pegs (R Series)', brand:'Super73', level:'beginner', desc:'Official passenger pegs for two-up riding on R series.', price:55, badge:'', link:'#' },
+    { id:'s14', model:'R Series', cat:'Utility / Body', name:'Extended Comfort Seat', brand:'Seat Concepts', level:'beginner', desc:'Wider, longer seat for better comfort on longer rides.', price:110, badge:'', link:'#' },
+    { id:'s15', model:'R Series', cat:'Utility / Body', name:'Saddlebag Set', brand:'Kriega', level:'beginner', desc:'Waterproof side bags that mount to R series rack. 10L capacity.', price:95, badge:'', link:'#' },
+
+    // S Series
+    { id:'s16', model:'S Series', cat:'Power / Drivetrain', name:'S Series Battery Upgrade', brand:'3rd Party', level:'advanced', desc:'Compatible battery upgrade for S1 and S2 models.', price:620, badge:'', link:'#' },
+    { id:'s17', model:'S Series', cat:'Brakes', name:'Hydraulic Upgrade (S Series)', brand:'Tektro', level:'beginner', desc:'Same hydraulic upgrade as R series. Fits S1 and S2 perfectly.', price:140, badge:'', link:'#' },
+    { id:'s18', model:'S Series', cat:'Wheels', name:'Fat Tire Upgrade (S Series)', brand:'Vee Tire', level:'beginner', desc:'20x4" fat tire upgrade for S series models.', price:130, badge:'', link:'#' },
+    { id:'s19', model:'S Series', cat:'Controls', name:'Handlebar Set (S Series)', brand:'Generic', level:'beginner', desc:'Wider bars for S1/S2. Better leverage and control.', price:65, badge:'', link:'#' },
+    { id:'s20', model:'S Series', cat:'Utility / Body', name:'Cargo Rack (S Series)', brand:'Super73', level:'beginner', desc:'Rear cargo rack compatible with S1 and S2.', price:75, badge:'', link:'#' },
+    { id:'s21', model:'S Series', cat:'Utility / Body', name:'Passenger Pegs (S Series)', brand:'Super73', level:'beginner', desc:'Passenger peg set for S series two-up riding.', price:50, badge:'', link:'#' },
+
+    // Z Series
+    { id:'s22', model:'Z Series', cat:'Power / Drivetrain', name:'Z Series Battery (Larger)', brand:'3rd Party', level:'advanced', desc:'Upgraded battery for Z1, ZX, Miami. Very limited upgrade options on Z platform.', price:380, badge:'', link:'#' },
+    { id:'s23', model:'Z Series', cat:'Wheels', name:'Fat Tire Set (Z Series)', brand:'Vee Tire', level:'beginner', desc:'Smaller fat tires for Z series. Fits Z1, ZX, and Miami models.', price:110, badge:'', link:'#' },
+    { id:'s24', model:'Z Series', cat:'Brakes', name:'Hydraulic Upgrade (Z Series)', brand:'Tektro', level:'beginner', desc:'Mechanical to hydraulic brake conversion for Z series. Night and day difference.', price:130, badge:'hot', link:'#' },
+    { id:'s25', model:'Z Series', cat:'Controls', name:'Handlebar + Grip Set (Z)', brand:'Generic', level:'beginner', desc:'Basic bar and grip upgrade for Z series. Standard sizing.', price:55, badge:'', link:'#' },
+    { id:'s26', model:'Z Series', cat:'Utility / Body', name:'Seat Upgrade (Z Series)', brand:'Seat Concepts', level:'beginner', desc:'Comfort seat upgrade for Z1/ZX. More foam, better cover material.', price:75, badge:'', link:'#' },
+    { id:'s27', model:'Z Series', cat:'Utility / Body', name:'Passenger Pegs (Z Series)', brand:'Super73', level:'beginner', desc:'Passenger pegs for Z series. Check model compatibility.', price:45, badge:'', link:'#' },
+    { id:'s28', model:'Z Series', cat:'Utility / Body', name:'Cosmetic Wrap Kit (Z)', brand:'Generic', level:'beginner', desc:'Color vinyl wrap kit for Z series frame and panels.', price:60, badge:'new', link:'#' },
+  ],
+
+  // ─── 79 MOTO ──────────────────────────────────────────────────────────────
+  '79moto': [
+    { id:'79_1',  model:'Falcon', cat:'Power / Drivetrain', name:'Falcon Battery Upgrade', brand:'3rd Party', level:'advanced', desc:'Higher capacity battery pack for the Falcon. Extend range and power.', price:580, badge:'', link:'#' },
+    { id:'79_2',  model:'Falcon', cat:'Power / Drivetrain', name:'Falcon Controller Tune', brand:'79 Moto', level:'advanced', desc:'Factory-approved power tune for the Falcon. Unlocks full output.', price:140, badge:'', link:'#' },
+    { id:'79_3',  model:'Falcon', cat:'Wheels', name:'Falcon MX Wheel Set', brand:'Excel', level:'advanced', desc:'MX-spec wheel set for Falcon. 21" front / 18" rear.', price:360, badge:'', link:'#' },
+    { id:'79_4',  model:'Falcon', cat:'Brakes', name:'Falcon Brake Upgrade Kit', brand:'Galfer', level:'beginner', desc:'Rotor and pad upgrade for Falcon. MX-grade performance.', price:130, badge:'', link:'#' },
+    { id:'79_5',  model:'Falcon', cat:'Suspension', name:'Falcon Fork Revalve Kit', brand:'79 Moto', level:'advanced', desc:'Factory spring and valving upgrade for Falcon forks.', price:280, badge:'', link:'#' },
+    { id:'79_6',  model:'Falcon', cat:'Suspension', name:'Falcon Rear Shock Upgrade', brand:'DNM', level:'beginner', desc:'Adjustable rear shock upgrade. Better than OEM, great price.', price:165, badge:'', link:'#' },
+    { id:'79_7',  model:'Falcon', cat:'Controls', name:'Falcon Handlebar Set', brand:'Renthal', level:'beginner', desc:'Renthal MX bars for Falcon. 28.6mm motorcycle standard.', price:80, badge:'', link:'#' },
+    { id:'79_8',  model:'Falcon', cat:'Extras', name:'Falcon Skid Plate', brand:'79 Moto', level:'beginner', desc:'OEM skid plate upgrade for better bash protection on Falcon.', price:70, badge:'', link:'#' },
+    { id:'79_9',  model:'Falcon Pro', cat:'Power / Drivetrain', name:'Falcon Pro Battery', brand:'3rd Party', level:'advanced', desc:'Upgraded battery for Falcon Pro. Higher capacity than base Falcon.', price:720, badge:'hot', link:'#' },
+    { id:'79_10', model:'Falcon Pro', cat:'Power / Drivetrain', name:'Falcon Pro Controller', brand:'79 Moto', level:'advanced', desc:'Pro-spec controller tune. Full power output unlock.', price:200, badge:'', link:'#' },
+    { id:'79_11', model:'Falcon Pro', cat:'Wheels', name:'Falcon Pro Wheel Set', brand:'Excel', level:'advanced', desc:'Pro-spec MX wheels for Falcon Pro.', price:400, badge:'top', link:'#' },
+    { id:'79_12', model:'Falcon Pro', cat:'Brakes', name:'Falcon Pro Brake Kit', brand:'Galfer', level:'beginner', desc:'Upgraded brakes for Falcon Pro. Larger rotors and quality pads.', price:150, badge:'', link:'#' },
+    { id:'79_13', model:'Falcon Pro', cat:'Suspension', name:'Falcon Pro Fork Kit', brand:'79 Moto', level:'advanced', desc:'Pro suspension setup for Falcon Pro. Factory-tuned internals.', price:380, badge:'hot', link:'#' },
+    { id:'79_14', model:'Falcon Pro', cat:'Controls', name:'Falcon Pro Bar Setup', brand:'Renthal', level:'beginner', desc:'Pro bar and grip setup for Falcon Pro. Race-ready out of the box.', price:100, badge:'', link:'#' },
+    { id:'79_15', model:'Falcon Pro', cat:'Extras', name:'Falcon Pro Plastics Kit', brand:'79 Moto', level:'beginner', desc:'OEM replacement plastics for Falcon Pro. Multiple colors.', price:145, badge:'new', link:'#' },
+  ],
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let activeBike = 'surron';
+let activeModel = 'all';
+let activeCat = 'All';
+let budgetMax = 2000;
+let buildList = []; // { id, name, cat, price, bike }
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  updatePartCounts();
+  renderParts();
+  document.getElementById('partsSection').classList.add('visible');
+  updateBuildPanel();
+  window.addEventListener('scroll', () => {
+    document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
+  });
+});
+
+// ─── BIKE SELECTION ───────────────────────────────────────────────────────────
+function selectBike(bikeKey, cardEl) {
+  if (activeBike === bikeKey) return;
+  activeBike = bikeKey;
+  activeModel = 'all';
+  activeCat = 'All';
+  budgetMax = 2000;
+  document.getElementById('budgetSlider').value = 2000;
+
+  // Update bike card active states
+  document.querySelectorAll('.bike-card').forEach(c => c.classList.remove('active'));
+  cardEl.classList.add('active');
+
+  // Update hero showcase active state
+  document.querySelectorAll('.sc-card').forEach(c => {
+    c.classList.toggle('active', c.getAttribute('onclick') && c.getAttribute('onclick').includes(`'${bikeKey}'`));
+  });
+
+  // Update parts heading label
+  const bike = BIKES[bikeKey];
+  const labelEl = document.getElementById('bikeLabel');
+  labelEl.textContent = bike.label;
+  labelEl.style.color = bike.color;
+
+  // Update build panel bike label
+  document.getElementById('buildBikeLabel').textContent = bike.label + ' — Parts List';
+
+  renderModelTabs();
+  renderSidebar();
+  renderParts();
+}
+
+function heroSelect(bikeKey, scCard) {
+  // Sync hero showcase
+  document.querySelectorAll('.sc-card').forEach(c => c.classList.remove('active'));
+  scCard.classList.add('active');
+
+  // Sync main bike cards
+  document.querySelectorAll('.bike-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.bike === bikeKey);
+  });
+
+  activeBike = bikeKey;
+  activeModel = 'all';
+  activeCat = 'All';
+  budgetMax = 2000;
+  document.getElementById('budgetSlider').value = 2000;
+
+  const bike = BIKES[bikeKey];
+  const labelEl = document.getElementById('bikeLabel');
+  labelEl.textContent = bike.label;
+  labelEl.style.color = bike.color;
+  document.getElementById('buildBikeLabel').textContent = bike.label + ' — Parts List';
+
+  renderModelTabs();
+  renderSidebar();
+  renderParts();
+  smoothTo('select-bike');
+}
+
+// ─── MODEL TABS ───────────────────────────────────────────────────────────────
+function renderModelTabs() {
+  const container = document.getElementById('modelTabs');
+  const models = BIKES[activeBike].models;
+  const allParts = PARTS[activeBike] || [];
+
+  let html = `<button class="model-tab ${activeModel==='all'?'active':''}" onclick="setModel('all')">All Models (${allParts.length})</button>`;
+  models.forEach(m => {
+    const count = allParts.filter(p => p.model === m).length;
+    html += `<button class="model-tab ${activeModel===m?'active':''}" onclick="setModel('${m.replace(/'/g,"\\'")}')"> ${m} (${count})</button>`;
+  });
+  container.innerHTML = html;
+}
+
+function setModel(m) {
+  activeModel = m;
+  activeCat = 'All';
+  renderModelTabs();
+  renderSidebar();
+  renderParts();
+}
+
+// ─── SIDEBAR ──────────────────────────────────────────────────────────────────
+function renderSidebar() {
+  const all = filteredByModelAndBudget();
+  const cats = {};
+  all.forEach(p => { cats[p.cat] = (cats[p.cat]||0)+1; });
+
+  const icons = {
+    'Power / Drivetrain':'⚙️','Wheels':'🛞','Brakes':'🛑','Suspension':'🧩',
+    'Controls':'🪛','Frame / Body':'🪑','Extras':'🦶','Utility / Body':'📦',
+  };
+
+  let html = `<button class="cat-btn ${activeCat==='All'?'active':''}" onclick="setCat('All')">
+    <span class="cat-icon">🔧</span> All <span class="cat-count">${all.length}</span>
+  </button>`;
+
+  Object.entries(cats).sort().forEach(([cat, cnt]) => {
+    const icon = icons[cat] || '🔩';
+    html += `<button class="cat-btn ${activeCat===cat?'active':''}" onclick="setCat('${cat.replace(/'/g,"\\'")}')">
+      <span class="cat-icon">${icon}</span> ${cat} <span class="cat-count">${cnt}</span>
+    </button>`;
+  });
+
+  document.getElementById('catSidebar').innerHTML = html;
+}
+
+function setCat(cat) {
+  activeCat = cat;
+  renderSidebar();
+  renderParts();
+}
+
+// ─── PARTS GRID ───────────────────────────────────────────────────────────────
+function filteredByModelAndBudget() {
+  let parts = PARTS[activeBike] || [];
+  if (activeModel !== 'all') parts = parts.filter(p => p.model === activeModel);
+  return parts.filter(p => p.price <= budgetMax);
+}
+
+function renderParts() {
+  const base = filteredByModelAndBudget();
+  const filtered = activeCat === 'All' ? base : base.filter(p => p.cat === activeCat);
+
+  document.getElementById('resultsCount').innerHTML = `Showing <strong>${filtered.length}</strong> parts`;
+
+  if (!filtered.length) {
+    document.getElementById('partsGrid').innerHTML = '<div class="no-results">No parts match your filters. Try adjusting your budget or category.</div>';
+    return;
+  }
+
+  document.getElementById('partsGrid').innerHTML = filtered.map(p => {
+    const inBuild = buildList.some(b => b.id === p.id);
+    const badgeHtml = p.badge ? `<span class="part-badge ${p.badge}">${p.badge.toUpperCase()}</span>` : '';
+    return `
+    <div class="part-card" id="card-${p.id}">
+      ${badgeHtml}
+      <div class="part-cat">${p.cat}</div>
+      <div class="part-name">${p.name}</div>
+      <div class="part-meta">
+        <span class="part-brand">${p.brand}</span>
+        <span class="part-level ${p.level}">${p.level}</span>
+      </div>
+      <div class="part-desc">${p.desc}</div>
+      <div class="part-bottom">
+        <div>
+          <div class="part-price">$${p.price}</div>
+          <div class="part-price-sub">est. retail</div>
+        </div>
+        <div class="part-actions">
+          <a class="shop-link" href="${p.link}" target="_blank">Shop →</a>
+          <button class="add-btn ${inBuild?'added':''}" id="addbtn-${p.id}" onclick="togglePart('${p.id}')">
+            ${inBuild?'✓':'+'}
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── BUDGET ───────────────────────────────────────────────────────────────────
+function onBudget(val) {
+  budgetMax = parseInt(val);
+  document.getElementById('budgetVal').textContent = `$${budgetMax}`;
+  renderSidebar();
+  renderParts();
+}
+function resetBudget() {
+  budgetMax = 2000;
+  document.getElementById('budgetSlider').value = 2000;
+  document.getElementById('budgetVal').textContent = '$2000';
+  renderSidebar();
+  renderParts();
+}
+
+// ─── PART COUNTS ON BIKE CARDS ────────────────────────────────────────────────
+function updatePartCounts() {
+  Object.keys(PARTS).forEach(bike => {
+    const el = document.getElementById(`cnt-${bike}`);
+    if (el) el.textContent = `${PARTS[bike].length} parts available`;
+  });
+}
+
+// ─── BUILD LIST ───────────────────────────────────────────────────────────────
+function togglePart(id) {
+  const allParts = Object.values(PARTS).flat();
+  const part = allParts.find(p => p.id === id);
+  if (!part) return;
+
+  const idx = buildList.findIndex(b => b.id === id);
+  if (idx === -1) {
+    buildList.push({ id: part.id, name: part.name, cat: part.cat, price: part.price, bike: activeBike });
+    showToast(`${part.name} added to build`);
+  } else {
+    buildList.splice(idx, 1);
+    showToast(`${part.name} removed`);
+  }
+
+  // Update button state
+  const btn = document.getElementById(`addbtn-${id}`);
+  if (btn) {
+    const inBuild = buildList.some(b => b.id === id);
+    btn.classList.toggle('added', inBuild);
+    btn.textContent = inBuild ? '✓' : '+';
+  }
+
+  updateBuildPanel();
+}
+
+function removePart(id) {
+  buildList = buildList.filter(b => b.id !== id);
+  updateBuildPanel();
+  // Refresh add button if part is visible
+  const btn = document.getElementById(`addbtn-${id}`);
+  if (btn) { btn.classList.remove('added'); btn.textContent = '+'; }
+}
+
+function updateBuildPanel() {
+  const count = buildList.length;
+  document.getElementById('buildCount').textContent = count;
+
+  const itemsEl = document.getElementById('buildItems');
+  if (!count) {
+    itemsEl.innerHTML = '<div class="build-empty">No parts added yet.<br>Select a bike and start adding parts to your build.</div>';
+    document.getElementById('buildTotal').textContent = '$0';
+    return;
+  }
+
+  const total = buildList.reduce((s, b) => s + b.price, 0);
+  itemsEl.innerHTML = buildList.map(b => `
+    <div class="build-item">
+      <div>
+        <div class="build-item-name">${b.name}</div>
+        <div class="build-item-cat">${b.cat}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="build-item-price">$${b.price}</span>
+        <button class="remove-btn" onclick="removePart('${b.id}')">✕</button>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('buildTotal').textContent = `$${total.toLocaleString()}`;
+}
+
+// ─── BUILD PANEL TOGGLE ───────────────────────────────────────────────────────
+function toggleBuild() {
+  document.getElementById('buildPanel').classList.toggle('open');
+}
+
+// ─── SAVE / SHARE ─────────────────────────────────────────────────────────────
+function saveBuild() {
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email) { showToast('Enter your email first'); return; }
+  showToast('Build saved! Check your email.');
+}
+
+function generateLink() {
+  const data = btoa(JSON.stringify({ bike: activeBike, parts: buildList.map(b => b.id) }));
+  const link = `${window.location.href.split('?')[0]}?build=${data}`;
+  document.getElementById('shareLinkInput').value = link;
+  showToast('Link generated!');
+}
+
+function copyLink() {
+  const val = document.getElementById('shareLinkInput').value;
+  if (!val) { generateLink(); return; }
+  navigator.clipboard.writeText(val).then(() => showToast('Link copied!'));
+}
+
+// ─── UTILITIES ────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function smoothTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ─── INIT LABELS ON LOAD ──────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const bike = BIKES[activeBike];
+  document.getElementById('bikeLabel').textContent = bike.label;
+  document.getElementById('bikeLabel').style.color = bike.color;
+  document.getElementById('buildBikeLabel').textContent = bike.label + ' — Parts List';
+  renderModelTabs();
+  renderSidebar();
+});
+</script>
+</body>
+</html>
